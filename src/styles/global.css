@@ -125,20 +125,26 @@
     );
   }
 
-  /* Ambient yellow pulse loop (for ⚡ icon) */
-  @keyframes ambientPulse {
-    0%, 100% {
-      box-shadow: 0 0 24px rgba(255, 204, 0, 0.2);
-      transform: scale(1);
-    }
-    50% {
-      box-shadow: 0 0 56px rgba(255, 204, 0, 0.5);
-      transform: scale(1.02);
-    }
+  /* Ambient yellow pulse — opacity-only (GPU composited, 0 repaint) */
+  /* box-shadow baked into pseudo-element, only opacity animates */
+  .animate-pulse-glow {
+    position: relative;
+  }
+  .animate-pulse-glow::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+    box-shadow: 0 0 48px 8px rgba(255, 204, 0, 0.45);
+    opacity: 0.25;
+    animation: pulseGlow 2.4s ease-in-out infinite;
+    pointer-events: none;
+    will-change: opacity;
   }
 
-  .animate-pulse-glow {
-    animation: ambientPulse 2.4s ease-in-out infinite;
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.2; }
+    50%       { opacity: 0.9; }
   }
 
   /* Reveal-up (scroll entry default) */

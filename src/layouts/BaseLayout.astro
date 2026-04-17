@@ -1,7 +1,6 @@
 ---
 // Base layout — шрифты, meta, grain overlay, scroll progress, глобальный motion-layer
 import "../styles/global.css";
-import SmoothScroll from "../components/islands/SmoothScroll.tsx";
 import CustomCursor from "../components/islands/CustomCursor.tsx";
 
 interface Props {
@@ -42,20 +41,28 @@ const {
     <!-- Theme color -->
     <meta name="theme-color" content="#000000" />
 
-    <!-- Fonts -->
+    <!-- Fonts — только нужные веса (6 вместо 17), display=swap для non-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Manrope:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Manrope:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      media="print" onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Manrope:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+    </noscript>
   </head>
   <body class="grain">
     <!-- Scroll progress bar -->
     <div id="scroll-progress" class="scroll-progress"></div>
 
-    <!-- Global motion layer — islands, client-side only -->
-    <SmoothScroll client:load />
+    <!-- Custom cursor island — desktop only -->
     <CustomCursor client:load />
 
     <slot />
@@ -90,9 +97,21 @@ const {
           },
           { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
         );
-        document
-          .querySelectorAll("[data-reveal]")
-          .forEach((el) => io.observe(el));
+        document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+
+        // Убираем will-change после окончания анимации — 24+ compositor layers → 0
+        document.addEventListener("animationend", function (e) {
+          var n = e.animationName;
+          if (n === "kineticReveal" || n === "revealUp" || n === "pulseGlow") return;
+          e.target.style.willChange = "auto";
+        }, { passive: true, capture: true });
+
+        // kineticReveal — убираем will-change после last word (longest delay + duration)
+        document.querySelectorAll(".kinetic-word").forEach(function(el) {
+          el.addEventListener("animationend", function() {
+            el.style.willChange = "auto";
+          }, { once: true, passive: true });
+        });
       })();
     </script>
   </body>
@@ -129,18 +148,12 @@ const {
     min-height: 90vh;
   }
 
-  /* Lenis — required class setup */
-  html.lenis, html.lenis body {
-    height: auto;
+  /* Smooth anchor scroll — нативный CSS, compositor-threaded, 0 JS */
+  html {
+    scroll-behavior: smooth;
   }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden;
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
   }
 
   /* Custom cursor — hide native when active */

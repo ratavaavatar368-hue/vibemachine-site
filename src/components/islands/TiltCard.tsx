@@ -38,18 +38,25 @@ export default function TiltCard({
     const el = ref.current;
     if (!el) return;
     el.style.transform = '';
+    el.style.willChange = 'auto'; // освобождаем compositor layer
+  };
+
+  // will-change только при ховере, иначе лишний compositor layer
+  const handleEnter = () => {
+    const el = ref.current;
+    if (el) el.style.willChange = 'transform';
   };
 
   return (
     <div
       ref={ref}
       className={className}
+      onMouseEnter={handleEnter}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
       style={{
         transition: 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)',
         transformStyle: 'preserve-3d',
-        willChange: 'transform',
       }}
     >
       {children}
