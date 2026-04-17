@@ -58,8 +58,13 @@ const fragmentShader = /* glsl */ `
     vec2 mouseOffset = (uMouse - 0.5) * 0.12;
     p += mouseOffset;
 
-    // Distance from center (slightly shifted downward for hero composition)
-    float d = length(p - vec2(0.0, -0.05));
+    // Glow origin shifted UP — sits behind the ⚡ icon, NOT on the text below
+    // In p-space: y+ = up. 0.28 = upper-center, above the big headline.
+    float d = length(p - vec2(0.0, 0.28));
+
+    // Tighter radial — focused halo, not a screen-filling flood
+    // smoothstep(0.52, 0.0, d): full at center, zero by radius ~0.52
+    float radial = smoothstep(0.52, 0.0, d);
 
     // Flow: fbm noise slowly moves
     float t = uTime * 0.06;
@@ -67,9 +72,8 @@ const fragmentShader = /* glsl */ `
     float n2 = fbm(p * 3.2 - vec2(t * 0.4, t * 1.1));
     float n = mix(n1, n2, 0.5);
 
-    // Radial fall-off + noise modulation
-    float radial = smoothstep(0.75, 0.0, d);
-    float intensity = radial * (0.28 + n * 0.62);
+    // Full original intensity — beautiful, not dimmed
+    float intensity = radial * (0.35 + n * 0.85);
 
     // Palette: yellow → amber → coral
     vec3 yellow = vec3(1.0, 0.8, 0.0);
@@ -84,9 +88,8 @@ const fragmentShader = /* glsl */ `
     // Slight contrast lift in hot core
     col *= 1.0 + intensity * 0.4;
 
-    // Soft transparent edges — so body черный bg просвечивает
-    // Keep intensity lower so text stays readable over the warm glow
-    float alpha = smoothstep(0.02, 0.28, intensity) * 0.55;
+    // Full alpha — glow is vivid where it lives (behind icon), fades out naturally
+    float alpha = smoothstep(0.02, 0.28, intensity) * 0.9;
 
     gl_FragColor = vec4(col, alpha);
   }

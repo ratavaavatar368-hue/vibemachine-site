@@ -16,18 +16,11 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
   <!-- WebGL shader background (R3F) — lazy loads after first paint -->
   <HeroLightning client:idle />
 
-  <!-- Soft radial glow overlay — reduced so it accents edges not center -->
+  <!-- Radial glow overlay — reinforces the icon halo, positioned top-center -->
   <div
     aria-hidden="true"
-    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(1200px,100vw)] aspect-square pointer-events-none bg-glow-radial opacity-15 blur-3xl z-[1]"
-  >
-  </div>
-
-  <!-- Dark center scrim — creates contrast stage for text over the warm shader -->
-  <div
-    aria-hidden="true"
-    class="absolute inset-0 pointer-events-none z-[2]"
-    style="background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(0,0,0,0.52) 0%, transparent 100%)"
+    class="absolute left-1/2 -translate-x-1/2 w-[min(800px,80vw)] aspect-square pointer-events-none bg-glow-radial opacity-30 blur-3xl z-[1]"
+    style="top: 6%"
   >
   </div>
 
