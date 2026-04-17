@@ -90,18 +90,10 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       data-reveal
       style="animation-delay:1300ms"
     >
-      <span class="platform-chip animate-float" style="animation-delay:0ms">
-        TikTok
-      </span>
-      <span class="platform-chip animate-float" style="animation-delay:300ms">
-        Instagram&nbsp;Reels
-      </span>
-      <span class="platform-chip animate-float" style="animation-delay:600ms">
-        YouTube&nbsp;Shorts
-      </span>
-      <span class="platform-chip animate-float" style="animation-delay:900ms">
-        ВК&nbsp;Видео
-      </span>
+      <span class="platform-chip">TikTok</span>
+      <span class="platform-chip">Instagram&nbsp;Reels</span>
+      <span class="platform-chip">YouTube&nbsp;Shorts</span>
+      <span class="platform-chip">ВК&nbsp;Видео</span>
     </div>
   </div>
 
@@ -127,58 +119,60 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     overflow: hidden;
   }
 
-  /* Main amber halo — sits behind the ⚡ icon */
+  /* Main amber halo — sits behind the ⚡ icon
+     blur встроен прямо в radial-gradient (через мягкие stops) вместо
+     дорогостоящего filter:blur(), который форсит GPU recomposite */
   .hero-plasma::before {
     content: "";
     position: absolute;
-    top: 8%;
+    top: 4%;
     left: 50%;
-    width: min(780px, 80vw);
+    width: min(820px, 85vw);
     aspect-ratio: 1;
     border-radius: 50%;
     background: radial-gradient(
       ellipse at center,
-      rgba(255, 200, 0, 0.26) 0%,
-      rgba(255, 140, 0, 0.16) 30%,
-      rgba(255, 107, 53, 0.07) 60%,
-      transparent 78%
+      rgba(255, 195, 0, 0.22)  0%,
+      rgba(255, 160, 0, 0.14) 22%,
+      rgba(255, 120, 0, 0.07) 45%,
+      rgba(255, 80,  0, 0.02) 65%,
+      transparent 80%
     );
-    filter: blur(64px);
+    /* NO filter:blur — saves GPU layer recomposition */
     transform: translateX(-50%);
-    animation: plasmaBreath 4.4s ease-in-out infinite;
-    will-change: opacity, transform;
+    animation: plasmaBreath 5s ease-in-out infinite;
+    will-change: opacity;           /* только opacity — cheap */
   }
 
-  /* Secondary warm core — tighter, brighter */
+  /* Secondary warm core */
   .hero-plasma::after {
     content: "";
     position: absolute;
-    top: 6%;
+    top: 3%;
     left: 50%;
-    width: min(340px, 38vw);
+    width: min(380px, 42vw);
     aspect-ratio: 1;
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(255, 185, 0, 0.42) 0%,
-      rgba(255, 140, 0, 0.18) 45%,
-      transparent 70%
+      rgba(255, 185, 0, 0.36) 0%,
+      rgba(255, 140, 0, 0.14) 40%,
+      transparent 68%
     );
-    filter: blur(36px);
     transform: translateX(-50%);
-    animation: plasmaCore 5.8s ease-in-out infinite;
-    will-change: opacity, transform;
+    animation: plasmaCore 7s ease-in-out infinite;
+    will-change: opacity;
   }
 
   @keyframes plasmaBreath {
-    0%, 100% { opacity: 0.55; transform: translateX(-50%) scale(1); }
-    50%       { opacity: 0.95; transform: translateX(-50%) scale(1.14); }
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1;   }
   }
 
   @keyframes plasmaCore {
-    0%, 100% { opacity: 0.4;  transform: translateX(-50%) scale(1) rotate(0deg); }
-    35%       { opacity: 0.85; transform: translateX(-47%) scale(1.22) rotate(6deg); }
-    70%       { opacity: 0.5;  transform: translateX(-53%) scale(0.88) rotate(-4deg); }
+    0%, 100% { opacity: 0.35; }
+    40%       { opacity: 0.9;  }
+    70%       { opacity: 0.45; }
   }
 
   @media (prefers-reduced-motion: reduce) {

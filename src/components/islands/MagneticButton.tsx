@@ -11,8 +11,8 @@ interface Props {
 }
 
 /**
- * MagneticButton — пуль button к курсору в радиусе.
- * Применяется к <a>-кнопкам. Выключен на touch.
+ * MagneticButton — тянет кнопку к курсору в радиусе.
+ * RAF запускается только когда мышь в радиусе, иначе stopped → 0 CPU.
  */
 export default function MagneticButton({
   children,
@@ -28,14 +28,29 @@ export default function MagneticButton({
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof window === 'undefined') return;
+    // Отключаем на touch и reduced-motion
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let rafId = 0;
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
+    let running = false;
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+
+    const tick = () => {
+      currentX += (targetX - currentX) * 0.16;
+      currentY += (targetY - currentY) * 0.16;
+
+      el.style.transform = `translate3d(${currentX.toFixed(2)}px,${currentY.toFixed(2)}px,0)`;
+
+      // Останавливаем RAF когда близко к нулю — нет смысла крутить зря
+      if (Math.abs(currentX) < 0.05 && Math.abs(currentY) < 0.05 && targetX === 0 && targetY === 0) {
+        el.style.transform = '';
+        running = false;
+        return; // RAF не переназначается → loop stops
+      }
+      rafId = requestAnimationFrame(tick);
+    };
 
     const handleMove = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
@@ -53,17 +68,15 @@ export default function MagneticButton({
         targetX = 0;
         targetY = 0;
       }
-    };
 
-    const tick = () => {
-      currentX += (targetX - currentX) * 0.18;
-      currentY += (targetY - currentY) * 0.18;
-      el.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
-      rafId = requestAnimationFrame(tick);
+      // Запускаем RAF только если не бежит
+      if (!running) {
+        running = true;
+        rafId = requestAnimationFrame(tick);
+      }
     };
 
     window.addEventListener('mousemove', handleMove, { passive: true });
-    rafId = requestAnimationFrame(tick);
 
     return () => {
       window.removeEventListener('mousemove', handleMove);
@@ -79,7 +92,7 @@ export default function MagneticButton({
       target={target}
       rel={rel}
       className={className}
-      style={{ display: 'inline-flex', willChange: 'transform' }}
+      style={{ display: 'inline-flex' }}
     >
       {children}
     </a>

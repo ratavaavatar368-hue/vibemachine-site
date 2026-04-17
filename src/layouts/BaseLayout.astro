@@ -109,6 +109,9 @@ const {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* Браузер пропускает layout/paint для секций вне viewport */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px; /* hint для scroll height */
   }
   @media (min-width: 768px) {
     section.block {
@@ -144,6 +147,23 @@ const {
   html.has-custom-cursor,
   html.has-custom-cursor * {
     cursor: none !important;
+  }
+
+  /* ── Reveal system fix ──────────────────────────────────────────
+     Элементы СКРЫТЫ до появления в viewport.
+     Без этого: элемент видим → IO добавляет .animate-reveal-up →
+     animation 'both' ставит opacity:0 → flash исчезания.
+     ─────────────────────────────────────────────────────────────── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Не transition — animate-reveal-up сам управляет движением */
+  }
+
+  /* После того как IO добавил класс — снять инлайновый стиль */
+  [data-reveal].animate-reveal-up {
+    opacity: 1;
+    transform: none;
   }
 
   /* Section divider — thin yellow line between blocks */
