@@ -208,13 +208,14 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     background: conic-gradient(
       from 0deg,
       transparent 0%,
-      rgba(255, 204, 0, 0.4) 8%,
+      rgba(255, 204, 0, 0.18) 8%,
       transparent 22%,
-      rgba(255, 140, 0, 0.25) 55%,
+      rgba(255, 140, 0, 0.10) 55%,
       transparent 72%
     );
     animation: factoryRotate 14s linear infinite;
-    mix-blend-mode: screen;
+    /* mix-blend-mode:screen УБРАН — Safari GPU alpha-blend на каждом кадре */
+    /* Компенсируем снижением opacity самого gradient через rgba */
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -128,9 +128,7 @@ const {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Браузер пропускает layout/paint для секций вне viewport */
-    content-visibility: auto;
-    contain-intrinsic-size: 0 600px; /* hint для scroll height */
+    /* content-visibility:auto УБРАН — Safari layout jank при входе секций */
   }
   @media (min-width: 768px) {
     section.block {

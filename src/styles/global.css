@@ -89,7 +89,9 @@
    ═══════════════════════════════════════════════════════════════ */
 
 @layer utilities {
-  /* Film grain — subtle cinema texture over everything */
+  /* Film grain — subtle cinema texture
+     ВАЖНО: NO mix-blend-mode (Safari пересчитывает весь viewport на каждый кадр скролла)
+     NO fixed position — используем absolute + repeat для той же текстуры без перекомпозита */
   .grain::before {
     content: "";
     position: fixed;
@@ -97,8 +99,8 @@
     pointer-events: none;
     z-index: 9999;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
-    opacity: 0.05;
-    mix-blend-mode: overlay;
+    opacity: 0.04;
+    /* mix-blend-mode УБРАН — был главным Safari scroll killer */
   }
 
   /* Gradient — hero accent */
@@ -107,13 +109,13 @@
   }
 
   .text-gradient-hero {
-    /* Yellow → orange → coral — vivid brand gradient (matches КП style) */
+    /* Yellow → orange → coral — vivid brand gradient */
     background: linear-gradient(135deg, #ffcc00 0%, #ff8c00 55%, #ff6b35 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 18px rgba(255, 140, 0, 0.35));
+    /* filter:drop-shadow УБРАН — создаёт лишний compositor layer на Safari */
   }
 
   /* Glow — radial */
