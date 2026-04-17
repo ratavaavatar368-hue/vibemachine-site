@@ -32,9 +32,8 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
 
     <!-- Sub — 2-в-1 -->
     <p
-      class="text-lg md:text-xl text-[var(--color-text-1)] max-w-[32ch] mb-12 leading-snug"
-      data-reveal
-      style="animation-delay:900ms"
+      class="hero-entry text-lg md:text-xl text-[var(--color-text-1)] max-w-[32ch] mb-12 leading-snug"
+      style="animation-delay:0.3s"
     >
       Трафик и контент — в&nbsp;одном решении.
       <br />
@@ -43,9 +42,8 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
 
     <!-- CTAs -->
     <div
-      class="flex flex-col sm:flex-row items-center gap-4 mb-16"
-      data-reveal
-      style="animation-delay:1100ms"
+      class="hero-entry flex flex-col sm:flex-row items-center gap-4 mb-16"
+      style="animation-delay:0.5s"
     >
       <MagneticButton
         client:load
@@ -72,9 +70,8 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
 
     <!-- Platform strip -->
     <div
-      class="flex flex-wrap items-center justify-center gap-2"
-      data-reveal
-      style="animation-delay:1300ms"
+      class="hero-entry flex flex-wrap items-center justify-center gap-2"
+      style="animation-delay:0.7s"
     >
       <span class="platform-chip">TikTok</span>
       <span class="platform-chip">Instagram&nbsp;Reels</span>
@@ -167,5 +164,21 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       animation: none;
       opacity: 0.6;
     }
+  }
+
+  /* ── Hero above-fold reveal — NO IntersectionObserver needed ──
+     Fires immediately on load, no IO wait, no 900–1300ms penalty  */
+  .hero-entry {
+    opacity: 0;
+    animation: heroFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-entry { animation: none; opacity: 1; }
   }
 </style>

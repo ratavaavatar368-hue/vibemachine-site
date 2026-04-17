@@ -12,56 +12,22 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     <!-- Logo -->
     <a
       href="#top"
-      class="flex items-center gap-2 font-display font-extrabold tracking-tight text-[var(--color-text-0)]"
+      class="flex items-center gap-3 font-display font-extrabold tracking-tight text-[var(--color-text-0)]"
     >
-      <span class="logo-bolt text-[var(--color-accent)] text-xl">⚡</span>
-      <span class="text-base md:text-lg tracking-[-0.02em]"
-        >VIBE MACHINE</span
-      >
+      <!-- Pulsing circle badge around ⚡ -->
+      <span class="logo-ring" aria-hidden="true">
+        <span class="logo-ring__bolt">⚡</span>
+      </span>
+      <span class="text-base md:text-lg tracking-[-0.02em]">VIBE MACHINE</span>
     </a>
 
     <!-- Nav — hidden on mobile -->
     <nav class="hidden md:flex items-center gap-8 text-sm text-[var(--color-text-1)]">
-      <a href="#diagnosis" class="hover:text-[var(--color-text-0)] transition-colors"
-        >Канал</a
-      >
-      <a href="#studio" class="hover:text-[var(--color-text-0)] transition-colors"
-        >Студия</a
-      >
-      <a href="#pricing" class="hover:text-[var(--color-text-0)] transition-colors"
-        >Пакеты</a
-      >
-      <a href="#faq" class="hover:text-[var(--color-text-0)] transition-colors"
-        >FAQ</a
-      >
+      <a href="#diagnosis" class="hover:text-[var(--color-text-0)] transition-colors">Канал</a>
+      <a href="#studio" class="hover:text-[var(--color-text-0)] transition-colors">Студия</a>
+      <a href="#pricing" class="hover:text-[var(--color-text-0)] transition-colors">Пакеты</a>
+      <a href="#faq" class="hover:text-[var(--color-text-0)] transition-colors">FAQ</a>
     </nav>
-
-    <!-- Nav — hidden on mobile -->
-
-<style>
-  /* Pulsing glow on the ⚡ bolt in the logo */
-  .logo-bolt {
-    display: inline-block;
-    position: relative;
-    filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.9));
-    animation: boltPulse 2.8s ease-in-out infinite;
-  }
-
-  @keyframes boltPulse {
-    0%, 100% {
-      filter: drop-shadow(0 0 4px rgba(255, 204, 0, 0.6));
-      opacity: 0.85;
-    }
-    50% {
-      filter: drop-shadow(0 0 12px rgba(255, 204, 0, 1)) drop-shadow(0 0 24px rgba(255, 160, 0, 0.6));
-      opacity: 1;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .logo-bolt { animation: none; filter: none; }
-  }
-</style>
 
     <!-- CTA -->
     <a
@@ -74,3 +40,57 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     </a>
   </div>
 </header>
+
+<style>
+  /* ── Pulsing circle logo badge ── */
+  .logo-ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 204, 0, 0.45);
+    position: relative;
+    flex-shrink: 0;
+    animation: ringGlow 2.6s ease-in-out infinite;
+  }
+
+  /* Outer expanding ring */
+  .logo-ring::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 204, 0, 0.2);
+    animation: ringExpand 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .logo-ring__bolt {
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  @keyframes ringGlow {
+    0%, 100% {
+      border-color: rgba(255, 204, 0, 0.3);
+      box-shadow: 0 0 6px rgba(255, 204, 0, 0.15), inset 0 0 6px rgba(255, 204, 0, 0.05);
+    }
+    50% {
+      border-color: rgba(255, 204, 0, 0.75);
+      box-shadow: 0 0 14px rgba(255, 204, 0, 0.5), inset 0 0 8px rgba(255, 204, 0, 0.12);
+    }
+  }
+
+  @keyframes ringExpand {
+    0%, 100% { opacity: 0.15; transform: scale(1); }
+    50%       { opacity: 0.5;  transform: scale(1.12); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-ring { animation: none; }
+    .logo-ring::after { animation: none; opacity: 0.2; }
+  }
+</style>
