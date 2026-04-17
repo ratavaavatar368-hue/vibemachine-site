@@ -128,11 +128,11 @@ import CountUp from "../islands/CountUp.tsx";
             </div>
 
             <!-- Videos (stacked, show one at a time) -->
-            <div class="reel-videos">
+            <div class="reel-videos" id="reel-tap">
               <video
                 id="reel-video-0"
                 src="/videos/video-1.mp4"
-                autoplay muted loop playsinline preload="metadata"
+                muted loop playsinline preload="metadata"
                 class="reel-vid active"
               ></video>
               <video
@@ -141,6 +141,12 @@ import CountUp from "../islands/CountUp.tsx";
                 muted loop playsinline preload="metadata"
                 class="reel-vid"
               ></video>
+              <!-- Play overlay -->
+              <div id="reel-play-overlay" class="reel-play-overlay">
+                <div class="reel-play-btn">
+                  <span>▶</span>
+                </div>
+              </div>
             </div>
 
             <!-- Bottom caption -->
@@ -291,6 +297,46 @@ import CountUp from "../islands/CountUp.tsx";
     opacity: 1;
   }
 
+  /* Play overlay */
+  .reel-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    z-index: 5;
+  }
+
+  .reel-play-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .reel-play-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 32px rgba(255,204,0,0.5);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .reel-play-overlay:hover .reel-play-btn {
+    transform: scale(1.1);
+    box-shadow: 0 0 48px rgba(255,204,0,0.7);
+  }
+
+  .reel-play-btn span {
+    font-size: 1.8rem;
+    color: #000;
+    margin-left: 4px;
+  }
+
   /* Arrow buttons */
   .reel-arrow {
     width: 40px;
@@ -333,25 +379,56 @@ import CountUp from "../islands/CountUp.tsx";
 
 <script is:inline>
   (function () {
-    const videos = document.querySelectorAll('.reel-vid');
-    const dots   = document.querySelectorAll('.reel-dot');
+    const videos  = document.querySelectorAll('.reel-vid');
+    const dots    = document.querySelectorAll('.reel-dot');
     const caption = document.getElementById('reel-caption');
+    const overlay = document.getElementById('reel-play-overlay');
     const captions = ['Ролик 1 из 2', 'Ролик 2 из 2'];
     let current = 0;
+    let playing = false;
+
+    function setOverlay(show) {
+      if (!overlay) return;
+      if (show) overlay.classList.remove('hidden');
+      else overlay.classList.add('hidden');
+    }
 
     function goTo(idx) {
-      // pause old
       videos[current].pause();
       videos[current].classList.remove('active');
       dots[current].classList.remove('active');
-
       current = idx;
-
       videos[current].classList.add('active');
-      videos[current].play().catch(() => {});
       dots[current].classList.add('active');
       if (caption) caption.textContent = captions[current];
+      // keep playing state
+      if (playing) {
+        videos[current].play().catch(() => {});
+      } else {
+        setOverlay(true);
+      }
     }
+
+    // Play/pause on overlay / tap on video area
+    overlay?.addEventListener('click', () => {
+      playing = true;
+      videos[current].muted = false; // unmute on user click
+      videos[current].play().catch(() => { videos[current].muted = true; videos[current].play(); });
+      setOverlay(false);
+    });
+
+    // Tap on video to pause/play
+    document.getElementById('reel-tap')?.addEventListener('click', (e) => {
+      if (e.target === overlay || overlay?.contains(e.target)) return;
+      if (!playing) return;
+      if (videos[current].paused) {
+        videos[current].play();
+        setOverlay(false);
+      } else {
+        videos[current].pause();
+        setOverlay(true);
+      }
+    });
 
     document.getElementById('reel-prev')?.addEventListener('click', () => {
       goTo(current === 0 ? videos.length - 1 : current - 1);
@@ -364,5 +441,8 @@ import CountUp from "../islands/CountUp.tsx";
     dots.forEach((dot) => {
       dot.addEventListener('click', () => goTo(+dot.dataset.idx));
     });
+
+    // Show overlay initially
+    setOverlay(true);
   })();
 </script>
