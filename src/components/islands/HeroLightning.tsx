@@ -69,7 +69,7 @@ const fragmentShader = /* glsl */ `
 
     // Radial fall-off + noise modulation
     float radial = smoothstep(0.75, 0.0, d);
-    float intensity = radial * (0.35 + n * 0.85);
+    float intensity = radial * (0.28 + n * 0.62);
 
     // Palette: yellow → amber → coral
     vec3 yellow = vec3(1.0, 0.8, 0.0);
@@ -85,7 +85,8 @@ const fragmentShader = /* glsl */ `
     col *= 1.0 + intensity * 0.4;
 
     // Soft transparent edges — so body черный bg просвечивает
-    float alpha = smoothstep(0.02, 0.28, intensity) * 0.9;
+    // Keep intensity lower so text stays readable over the warm glow
+    float alpha = smoothstep(0.02, 0.28, intensity) * 0.55;
 
     gl_FragColor = vec4(col, alpha);
   }

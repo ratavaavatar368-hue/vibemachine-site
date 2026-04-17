@@ -112,6 +112,9 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
+    /* Glow halo so gradient text stays visible over the warm shader background */
+    filter: drop-shadow(0 0 28px rgba(255, 160, 0, 0.7))
+            drop-shadow(0 0 10px rgba(255, 204, 0, 0.4));
   }
 
   /* Glow — radial */
