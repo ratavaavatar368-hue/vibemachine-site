@@ -43,7 +43,7 @@ const qa = [
     </div>
 
     <!-- Accordion -->
-    <div class="divide-y divide-white/5 border-y border-white/5">
+    <div class="divide-y divide-white/5 border-y border-white/5 faq-accordion">
       {
         qa.map((item, i) => (
           <details
@@ -85,3 +85,15 @@ const qa = [
     </p>
   </div>
 </section>
+
+<style>
+  /* Hide native Safari/WebKit disclosure triangle on <details><summary>
+     list-none handles Chrome; -webkit-details-marker + ::marker handle Safari */
+  .faq-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-accordion summary::marker {
+    display: none;
+    content: '';
+  }
+</style>
