@@ -107,12 +107,13 @@
   }
 
   .text-gradient-hero {
-    /* White → bright yellow: always contrasts against warm orange/amber backgrounds */
-    background: linear-gradient(155deg, #ffffff 0%, #ffe566 42%, #ffcc00 100%);
+    /* Yellow → orange → coral — vivid brand gradient (matches КП style) */
+    background: linear-gradient(135deg, #ffcc00 0%, #ff8c00 55%, #ff6b35 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
+    filter: drop-shadow(0 0 18px rgba(255, 140, 0, 0.35));
   }
 
   /* Glow — radial */

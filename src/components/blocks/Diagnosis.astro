@@ -70,11 +70,10 @@ const channels = [
             style={`animation-delay:${240 + i * 100}ms`}
           >
             <div class="text-3xl mb-4">{ch.icon}</div>
-            <div class="font-mono text-xs text-[var(--color-text-2)] tracking-widest uppercase mb-2">
+            <div class="channel-name font-mono text-sm text-[var(--color-text-1)] tracking-widest uppercase mb-2">
               {ch.name}
             </div>
-            {/* Verdict — strikethrough animates through this text only */}
-            <div class="verdict-text h-display text-2xl md:text-3xl mb-2">
+            <div class="h-display text-2xl md:text-3xl mb-2">
               {ch.verdict}
             </div>
             <div class="text-sm text-[var(--color-text-1)] leading-relaxed">
@@ -101,39 +100,50 @@ const channels = [
 </section>
 
 <style>
-  /* Strikethrough — draws through the verdict text only, horizontal */
-  .diagnosis-card .verdict-text {
+  /* ── Strikethrough на названии канала (ДИРЕКТ / ТАРГЕТ / etc.) ── */
+  .diagnosis-card .channel-name {
     position: relative;
+    display: inline-block;
   }
 
-  .diagnosis-card .verdict-text::after {
+  /* Линия зачёркивания — рисуется слева направо при входе в вьюпорт */
+  .diagnosis-card .channel-name::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    /* vertically centered through the text block */
+    left: -2px;
+    right: -2px;
     top: 50%;
-    height: 2px;
+    margin-top: -1.5px;
+    height: 3px;
+    border-radius: 2px;
     background: linear-gradient(
       90deg,
-      rgba(255, 204, 0, 0.9) 0%,
-      rgba(255, 204, 0, 0.75) 85%,
-      transparent 100%
+      #ff8c00 0%,
+      #ff6b35 70%,
+      rgba(255, 107, 53, 0.4) 100%
     );
+    box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.42s;
     pointer-events: none;
   }
 
-  /* Trigger when card enters viewport */
-  .diagnosis-card.animate-reveal-up .verdict-text::after,
-  .diagnosis-card.in-view .verdict-text::after {
+  /* Trigger: IntersectionObserver добавляет .in-view к карточке */
+  .diagnosis-card.animate-reveal-up .channel-name::after,
+  .diagnosis-card.in-view .channel-name::after {
     transform: scaleX(1);
   }
 
+  /* Цвет текста при зачёркивании — немного тусклее (зачёркнут = мёртв) */
+  .diagnosis-card.in-view .channel-name,
+  .diagnosis-card.animate-reveal-up .channel-name {
+    transition: color 0.4s ease 0.2s;
+    color: var(--color-text-2);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .diagnosis-card .verdict-text::after {
+    .diagnosis-card .channel-name::after {
       transform: scaleX(1);
       transition: none;
     }

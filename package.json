@@ -19,18 +19,15 @@
     "tailwindcss": "^4.1.17",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^11.15.0",
-    "three": "^0.180.0",
-    "@react-three/fiber": "^9.1.2",
-    "@react-three/drei": "^10.1.2",
     "lenis": "^1.1.20",
-    "gsap": "^3.13.0",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
     "@types/react": "^19.2.3",
-    "@types/react-dom": "^19.2.3",
-    "@types/three": "^0.180.0"
+    "@types/react-dom": "^19.2.3"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }

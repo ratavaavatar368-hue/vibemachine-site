@@ -1,7 +1,6 @@
 ---
 // БЛОК 1 — HERO
-// WebGL shader background + kinetic H1 (CSS) + magnetic CTA + pulse ⚡
-import HeroLightning from "../islands/HeroLightning.tsx";
+// CSS-animated plasma glow background — 0 KB JS (removed Three.js/R3F)
 import KineticText from "../KineticText.astro";
 import MagneticButton from "../islands/MagneticButton.tsx";
 import TelegramIcon from "../TelegramIcon.astro";
@@ -13,16 +12,8 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
   id="top"
   class="block block-tall relative overflow-hidden"
 >
-  <!-- WebGL shader background (R3F) — lazy loads after first paint -->
-  <HeroLightning client:idle />
-
-  <!-- Radial glow overlay — reinforces the icon halo, positioned top-center -->
-  <div
-    aria-hidden="true"
-    class="absolute left-1/2 -translate-x-1/2 w-[min(800px,80vw)] aspect-square pointer-events-none bg-glow-radial opacity-30 blur-3xl z-[1]"
-    style="top: 6%"
-  >
-  </div>
+  <!-- CSS plasma glow — animated radial gradient, 0 KB JS -->
+  <div class="hero-plasma" aria-hidden="true"></div>
 
   <div
     class="relative z-10 max-w-[1200px] mx-auto text-center flex flex-col items-center"
@@ -125,3 +116,76 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     ></span>
   </div>
 </section>
+
+<style>
+  /* ── CSS Plasma Glow — replaces Three.js/R3F (saves ~1 MB JS) ── */
+  .hero-plasma {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  /* Main amber halo — sits behind the ⚡ icon */
+  .hero-plasma::before {
+    content: "";
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: min(780px, 80vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 200, 0, 0.26) 0%,
+      rgba(255, 140, 0, 0.16) 30%,
+      rgba(255, 107, 53, 0.07) 60%,
+      transparent 78%
+    );
+    filter: blur(64px);
+    transform: translateX(-50%);
+    animation: plasmaBreath 4.4s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  /* Secondary warm core — tighter, brighter */
+  .hero-plasma::after {
+    content: "";
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    width: min(340px, 38vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 185, 0, 0.42) 0%,
+      rgba(255, 140, 0, 0.18) 45%,
+      transparent 70%
+    );
+    filter: blur(36px);
+    transform: translateX(-50%);
+    animation: plasmaCore 5.8s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  @keyframes plasmaBreath {
+    0%, 100% { opacity: 0.55; transform: translateX(-50%) scale(1); }
+    50%       { opacity: 0.95; transform: translateX(-50%) scale(1.14); }
+  }
+
+  @keyframes plasmaCore {
+    0%, 100% { opacity: 0.4;  transform: translateX(-50%) scale(1) rotate(0deg); }
+    35%       { opacity: 0.85; transform: translateX(-47%) scale(1.22) rotate(6deg); }
+    70%       { opacity: 0.5;  transform: translateX(-53%) scale(0.88) rotate(-4deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-plasma::before,
+    .hero-plasma::after {
+      animation: none;
+      opacity: 0.6;
+    }
+  }
+</style>
