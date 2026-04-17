@@ -69,20 +69,16 @@ const channels = [
             data-reveal
             style={`animation-delay:${240 + i * 100}ms`}
           >
-            {/* CSS-based cross line — rotate + scaleX from 0 to 1 on in-view */}
-            <div class="cross-line" aria-hidden="true" />
-
-            <div class="relative">
-              <div class="text-3xl mb-4">{ch.icon}</div>
-              <div class="font-mono text-xs text-[var(--color-text-2)] tracking-widest uppercase mb-2">
-                {ch.name}
-              </div>
-              <div class="h-display text-2xl md:text-3xl mb-2">
-                {ch.verdict}
-              </div>
-              <div class="text-sm text-[var(--color-text-1)] leading-relaxed">
-                {ch.note}
-              </div>
+            <div class="text-3xl mb-4">{ch.icon}</div>
+            <div class="font-mono text-xs text-[var(--color-text-2)] tracking-widest uppercase mb-2">
+              {ch.name}
+            </div>
+            {/* Verdict — strikethrough animates through this text only */}
+            <div class="verdict-text h-display text-2xl md:text-3xl mb-2">
+              {ch.verdict}
+            </div>
+            <div class="text-sm text-[var(--color-text-1)] leading-relaxed">
+              {ch.note}
             </div>
           </div>
         ))
@@ -105,35 +101,40 @@ const channels = [
 </section>
 
 <style>
-  /* CSS-линия зачёркивания — rotate + scaleX, animate on reveal */
-  .diagnosis-card .cross-line {
-    position: absolute;
-    top: 50%;
-    left: -10%;
-    right: -10%;
-    height: 1.5px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 204, 0, 0.7) 10%,
-      rgba(255, 204, 0, 0.7) 90%,
-      transparent 100%
-    );
-    transform: rotate(-8deg) scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
-    pointer-events: none;
-    z-index: 1;
+  /* Strikethrough — draws through the verdict text only, horizontal */
+  .diagnosis-card .verdict-text {
+    position: relative;
   }
 
-  .diagnosis-card.animate-reveal-up .cross-line,
-  .diagnosis-card.in-view .cross-line {
-    transform: rotate(-8deg) scaleX(1);
+  .diagnosis-card .verdict-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    /* vertically centered through the text block */
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 204, 0, 0.9) 0%,
+      rgba(255, 204, 0, 0.75) 85%,
+      transparent 100%
+    );
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+    pointer-events: none;
+  }
+
+  /* Trigger when card enters viewport */
+  .diagnosis-card.animate-reveal-up .verdict-text::after,
+  .diagnosis-card.in-view .verdict-text::after {
+    transform: scaleX(1);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .diagnosis-card .cross-line {
-      transform: rotate(-8deg) scaleX(1);
+    .diagnosis-card .verdict-text::after {
+      transform: scaleX(1);
       transition: none;
     }
   }
