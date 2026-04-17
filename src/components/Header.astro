@@ -14,7 +14,7 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       href="#top"
       class="flex items-center gap-2 font-display font-extrabold tracking-tight text-[var(--color-text-0)]"
     >
-      <span class="text-[var(--color-accent)] text-xl">⚡</span>
+      <span class="logo-bolt text-[var(--color-accent)] text-xl">⚡</span>
       <span class="text-base md:text-lg tracking-[-0.02em]"
         >VIBE MACHINE</span
       >
@@ -35,6 +35,33 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
         >FAQ</a
       >
     </nav>
+
+    <!-- Nav — hidden on mobile -->
+
+<style>
+  /* Pulsing glow on the ⚡ bolt in the logo */
+  .logo-bolt {
+    display: inline-block;
+    position: relative;
+    filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.9));
+    animation: boltPulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes boltPulse {
+    0%, 100% {
+      filter: drop-shadow(0 0 4px rgba(255, 204, 0, 0.6));
+      opacity: 0.85;
+    }
+    50% {
+      filter: drop-shadow(0 0 12px rgba(255, 204, 0, 1)) drop-shadow(0 0 24px rgba(255, 160, 0, 0.6));
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-bolt { animation: none; filter: none; }
+  }
+</style>
 
     <!-- CTA -->
     <a
