@@ -1,0 +1,87 @@
+---
+// БЛОК 5 — FAQ
+// 6 вопросов, accordion
+
+const qa = [
+  {
+    q: "Вы используете AI?",
+    a: "Как один из инструментов студии. Точно так же, как классические студии используют Adobe и Cinema 4D. AI помогает в pipeline (исследование, first draft сценария, рендер-инфраструктура), но каждый ролик проходит через оператора и продюсера. Ролик — не сгенерирован, а спродюсирован.",
+  },
+  {
+    q: "1 000 роликов — реально?",
+    a: "Да. Через пакет Factory. Custom setup под ваш бренд, выделенная команда, аналитика. Объёмы 200–1 000/мес — уже про построенный контент-завод, а не про стандартный retainer.",
+  },
+  {
+    q: "Почему дешевле классических агентств?",
+    a: "Экономика конвейера. В классическом агентстве 80% стоимости = неоптимизированная логистика: правки, коммуникация, менеджмент проекта. У нас она автоматизирована внутри. Деньги клиента идут в продакшн, а не в проджект-офис.",
+  },
+  {
+    q: "100% предоплата — риск?",
+    a: "Спринт $1 000 специально спроектирован как тест. Если 50 роликов не дали того, что вы ждёте — вы не продлеваете на Старт или Factory. Решаете сами, на реальных цифрах.",
+  },
+  {
+    q: "Моя ниша специфична",
+    a: "Метод универсален: поиск трендов в нише → адаптация нарратива → тест → пересмотр каждые 100 видео. Первый кейс у нас — Web3/трейдинг. Ниша специфичнее некуда.",
+  },
+  {
+    q: "Что от меня требуется?",
+    a: "Бриф в Telegram-боте в начале + короткий check-in раз в 100 роликов. Всё остальное — на нас. Продакшн-headache вы не увидите.",
+  },
+];
+---
+
+<section id="faq" class="block relative">
+  <div class="max-w-[960px] mx-auto w-full">
+    <div class="mb-12 md:mb-16">
+      <div class="eyebrow mb-5" data-reveal>Что обычно спрашивают</div>
+      <h2
+        class="h-display text-[clamp(2rem,5vw,3.75rem)] max-w-[22ch]"
+        data-reveal
+      >
+        Прямо и <span class="text-gradient-hero">без увёрток.</span>
+      </h2>
+    </div>
+
+    <!-- Accordion -->
+    <div class="divide-y divide-white/5 border-y border-white/5">
+      {
+        qa.map((item, i) => (
+          <details
+            class="group py-6 cursor-pointer"
+            data-reveal
+            style={`animation-delay:${i * 80}ms`}
+            open={i === 0}
+          >
+            <summary class="flex items-center justify-between gap-6 list-none">
+              <span class="h-display text-lg md:text-2xl pr-6">
+                {item.q}
+              </span>
+              <span
+                class="flex-shrink-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-[var(--color-accent)] transition-transform group-open:rotate-45"
+              >
+                +
+              </span>
+            </summary>
+            <div class="mt-4 text-[var(--color-text-1)] leading-relaxed max-w-[64ch]">
+              {item.a}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+
+    <!-- Footer -->
+    <p
+      class="mt-8 font-mono text-sm text-[var(--color-text-2)]"
+      data-reveal
+      style="animation-delay:600ms"
+    >
+      Остальные вопросы — в <a
+        href="https://t.me/vibemachine_bot"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-arrow">Telegram-бот</a
+      >.
+    </p>
+  </div>
+</section>

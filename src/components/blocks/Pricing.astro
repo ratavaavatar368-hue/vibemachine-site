@@ -1,0 +1,225 @@
+---
+// БЛОК 4 — ПАКЕТЫ (Спринт / Старт / Factory)
+// 3D tilt на каждую карточку + conic-gradient animation на Factory
+import TiltCard from "../islands/TiltCard.tsx";
+
+const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
+---
+
+<section id="pricing" class="block relative">
+  <div class="max-w-[1280px] mx-auto w-full">
+    <div class="text-center mb-16 md:mb-20">
+      <div class="eyebrow mb-5 justify-center" data-reveal>Три пути</div>
+      <h2
+        class="h-display text-[clamp(2rem,5vw,3.75rem)] mb-5 max-w-[22ch] mx-auto"
+        data-reveal
+      >
+        Тест гипотезы. <br />
+        Масштаб. <br />
+        <span class="text-gradient-hero">Собственный контент-завод.</span>
+      </h2>
+      <p
+        class="text-[var(--color-text-1)] max-w-[48ch] mx-auto"
+        data-reveal
+        style="animation-delay:120ms"
+      >
+        Все пакеты включают полный студийный состав. Разница —
+        в&nbsp;объёме и&nbsp;степени кастомизации.
+      </p>
+    </div>
+
+    <!-- 3 cards -->
+    <div class="grid lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+      <!-- SPRINT -->
+      <TiltCard client:visible className="flex" maxTilt={4}>
+      <div
+        class="card-base flex flex-col w-full"
+        data-reveal
+        style="animation-delay:200ms"
+      >
+        <div class="eyebrow mb-4" style="color:var(--color-text-2)">
+          <span style="color:var(--color-text-2)">Тест</span>
+        </div>
+        <h3 class="h-display text-3xl mb-1">СПРИНТ</h3>
+        <div class="text-sm text-[var(--color-text-2)] mb-6">50 видео</div>
+
+        <div class="my-8">
+          <div class="font-display font-extrabold text-6xl text-[var(--color-text-0)]">
+            $20
+          </div>
+          <div class="font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest mt-2">
+            за 1 видео
+          </div>
+        </div>
+
+        <div class="space-y-3 text-sm mb-8 pt-6 border-t border-white/5">
+          <div class="flex justify-between">
+            <span class="text-[var(--color-text-2)]">Итого</span>
+            <span class="font-bold">$1 000</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-[var(--color-text-2)]">Предоплата</span>
+            <span class="font-bold">100%</span>
+          </div>
+        </div>
+
+        <a
+          href={TELEGRAM_BOT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost mt-auto"
+        >
+          Запустить Спринт
+        </a>
+      </div>
+      </TiltCard>
+
+      <!-- STARTER (recommended) -->
+      <TiltCard client:visible className="flex" maxTilt={4} scale={1.06}>
+      <div
+        class="card-base card-recommended relative flex flex-col w-full"
+        data-reveal
+        style="animation-delay:320ms"
+      >
+        <!-- Badge top -->
+        <div
+          class="absolute -top-4 left-1/2 -translate-x-1/2 badge-recommend whitespace-nowrap"
+        >
+          <span>⚡</span> Рекомендуем
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <div class="eyebrow" style="color:var(--color-accent)">Масштаб</div>
+          <span class="badge-discount">−30%</span>
+        </div>
+
+        <h3 class="h-display text-3xl mb-1">СТАРТ</h3>
+        <div class="text-sm text-[var(--color-text-2)] mb-6">100 видео</div>
+
+        <div class="my-8">
+          <div
+            class="font-display font-extrabold text-6xl text-gradient-hero"
+          >
+            $15
+          </div>
+          <div class="font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest mt-2">
+            за 1 видео
+          </div>
+        </div>
+
+        <div class="space-y-3 text-sm mb-8 pt-6 border-t border-white/5">
+          <div class="flex justify-between">
+            <span class="text-[var(--color-text-2)]">Итого</span>
+            <span class="font-bold">$1 500</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-[var(--color-text-2)]">Предоплата</span>
+            <span class="font-bold">100%</span>
+          </div>
+        </div>
+
+        <a
+          href={TELEGRAM_BOT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary mt-auto"
+        >
+          Масштабироваться
+        </a>
+      </div>
+      </TiltCard>
+
+      <!-- FACTORY -->
+      <TiltCard client:visible className="flex" maxTilt={4}>
+      <div
+        class="card-base flex flex-col relative overflow-hidden w-full"
+        data-reveal
+        style="animation-delay:440ms"
+      >
+        <!-- subtle rotating gradient border -->
+        <div
+          aria-hidden="true"
+          class="factory-gradient absolute inset-0 opacity-30 pointer-events-none"
+        >
+        </div>
+
+        <div class="relative flex-1 flex flex-col">
+          <div class="eyebrow mb-4" style="color:var(--color-text-2)">
+            <span style="color:var(--color-text-2)">Custom</span>
+          </div>
+          <h3 class="h-display text-3xl mb-1">FACTORY</h3>
+          <div class="text-sm text-[var(--color-text-2)] mb-6">
+            до <span class="text-[var(--color-text-0)] font-bold">1 000</span> видео / мес
+          </div>
+
+          <div class="my-8">
+            <div class="h-display text-3xl text-[var(--color-text-0)]">
+              Контент-завод<br />под ваш бренд
+            </div>
+          </div>
+
+          <ul class="space-y-2 text-sm text-[var(--color-text-1)] mb-8 pt-6 border-t border-white/5">
+            <li>— Custom pipeline под нишу</li>
+            <li>— Выделенная команда</li>
+            <li>— Аналитика + А/B тесты</li>
+            <li>— Managed или build&nbsp;&amp;&nbsp;transfer</li>
+          </ul>
+
+          <div class="mb-6 font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest">
+            обсуждаем индивидуально
+          </div>
+
+          <a
+            href={TELEGRAM_BOT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-ghost mt-auto"
+          >
+            Обсудить Factory <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+      </TiltCard>
+    </div>
+
+    <!-- Footnote strip -->
+    <p
+      class="mt-12 text-center font-mono text-xs text-[var(--color-text-2)] tracking-wide"
+      data-reveal
+      style="animation-delay:600ms"
+    >
+      Все пакеты: полный состав · 100% предоплата · файлы под TikTok · Reels · Shorts · ВК&nbsp;Видео
+    </p>
+  </div>
+</section>
+
+<style>
+  /* Factory card — slowly rotating conic gradient */
+  @keyframes factoryRotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .factory-gradient {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      rgba(255, 204, 0, 0.4) 8%,
+      transparent 22%,
+      rgba(255, 140, 0, 0.25) 55%,
+      transparent 72%
+    );
+    animation: factoryRotate 14s linear infinite;
+    mix-blend-mode: screen;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .factory-gradient {
+      animation: none;
+    }
+  }
+</style>

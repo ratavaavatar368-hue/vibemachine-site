@@ -1,0 +1,99 @@
+---
+// БЛОК 6 — CTA FINALE
+import MagneticButton from "../islands/MagneticButton.tsx";
+import KineticText from "../KineticText.astro";
+import TelegramIcon from "../TelegramIcon.astro";
+
+const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
+---
+
+<section class="block block-tall relative overflow-hidden">
+  <!-- Ambient glow background -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 pointer-events-none opacity-50"
+  >
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] aspect-square bg-glow-radial blur-3xl"
+    >
+    </div>
+  </div>
+
+  <div class="relative z-10 max-w-[900px] mx-auto text-center flex flex-col items-center">
+    <!-- Eyebrow -->
+    <div class="eyebrow mb-8" data-reveal>Готовы запустить канал?</div>
+
+    <!-- Headline — CSS kinetic + scroll trigger -->
+    <KineticText
+      as="h2"
+      scrollTrigger={true}
+      lines={[
+        { text: "Пока читаешь —" },
+        { text: "алгоритм выдал 50 роликов", className: "text-gradient-hero" },
+        { text: "в твоей нише." },
+        { text: "Без тебя.", className: "text-[var(--color-text-1)]" },
+      ]}
+      className="h-display text-[clamp(2rem,6vw,5rem)] mb-8 max-w-[24ch]"
+      stagger={0.07}
+    />
+
+    <!-- Sub -->
+    <p
+      class="text-lg text-[var(--color-text-1)] max-w-[52ch] mb-14 leading-snug"
+      data-reveal
+      style="animation-delay:120ms"
+    >
+      Спринт — $1 000. 50 роликов за 30 дней. <br />
+      Дальше — решаешь сам: масштабироваться или нет.
+    </p>
+
+    <!-- CTA stack -->
+    <div
+      class="flex flex-col items-center gap-5"
+      data-reveal
+      style="animation-delay:240ms"
+    >
+      <MagneticButton
+        client:visible
+        href={TELEGRAM_BOT_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-primary text-lg px-10 py-5"
+        strength={0.35}
+        radius={140}
+      >
+        <TelegramIcon size={20} />
+        <span>Запустить Спринт — $1 000</span>
+      </MagneticButton>
+
+      <a
+        href={TELEGRAM_BOT_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-arrow flex items-center gap-2 text-base"
+      >
+        <TelegramIcon size={16} />
+        <span>Или написать в Telegram-бот</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- ⚡ signature -->
+    <div
+      class="mt-24 md:mt-32 flex flex-col items-center gap-3 opacity-70"
+      data-reveal
+      style="animation-delay:400ms"
+    >
+      <div
+        class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center border border-[rgba(255,204,0,0.24)] animate-pulse-glow"
+      >
+        <span class="text-2xl text-gradient-hero">⚡</span>
+      </div>
+      <div
+        class="font-display font-black text-sm tracking-[0.2em] uppercase"
+      >
+        Vibe Machine
+      </div>
+    </div>
+  </div>
+</section>

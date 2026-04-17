@@ -1,0 +1,166 @@
+---
+// Base layout — шрифты, meta, grain overlay, scroll progress, глобальный motion-layer
+import "../styles/global.css";
+import SmoothScroll from "../components/islands/SmoothScroll.tsx";
+import CustomCursor from "../components/islands/CustomCursor.tsx";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "Vibe Machine — студия короткого видео. От 50 до 1 000 роликов в месяц.",
+  description = "Единственный канал, который даёт охваты в 2026 — вертикальное короткое видео. Мы его строим. TikTok · Reels · Shorts · ВК Видео.",
+  ogImage = "/og.png",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru" class="bg-[var(--color-bg-0)] text-[var(--color-text-0)]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale" content="ru_RU" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+    />
+  </head>
+  <body class="grain">
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress" class="scroll-progress"></div>
+
+    <!-- Global motion layer — islands, client-side only -->
+    <SmoothScroll client:load />
+    <CustomCursor client:load />
+
+    <slot />
+
+    <!-- Simple scroll-progress tracker (vanilla, no deps) -->
+    <script is:inline>
+      (function () {
+        const bar = document.getElementById("scroll-progress");
+        if (!bar) return;
+        const update = () => {
+          const doc = document.documentElement;
+          const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight);
+          bar.style.setProperty("--scroll-progress", String(scrolled || 0));
+        };
+        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+      })();
+    </script>
+
+    <!-- IntersectionObserver — [data-reveal] gets .animate-reveal-up + .in-view -->
+    <script is:inline>
+      (function () {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("animate-reveal-up", "in-view");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+        );
+        document
+          .querySelectorAll("[data-reveal]")
+          .forEach((el) => io.observe(el));
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: dark;
+  }
+
+  /* Section spacing — tighter, content-driven */
+  section.block {
+    padding: 4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  @media (min-width: 768px) {
+    section.block {
+      padding: 5.5rem 3rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    section.block {
+      padding: 7rem 6rem;
+    }
+  }
+
+  /* Hero + CTA finale — фулл viewport для удара, остальные — по контенту */
+  section.block-tall {
+    min-height: 90vh;
+  }
+
+  /* Lenis — required class setup */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /* Custom cursor — hide native when active */
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+
+  /* Section divider — thin yellow line between blocks */
+  .section-divider {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 204, 0, 0.3) 50%,
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .section-divider.in-view {
+    opacity: 1;
+  }
+</style>

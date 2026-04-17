@@ -1,0 +1,121 @@
+---
+// KineticText — CSS-only staggered word reveal. Zero JS.
+// Текст всегда видимый в SSR. Анимация — чисто CSS keyframes с animation-delay.
+// Для scroll-trigger: scrollTrigger=true → анимация стартует когда элемент входит в viewport
+// (запускается через существующий IO в BaseLayout, который ставит класс `.in-view`).
+
+interface Line {
+  text: string;
+  className?: string;
+}
+
+interface Props {
+  lines: Line[];
+  className?: string;
+  stagger?: number;      // seconds between words
+  delay?: number;         // starting delay in seconds
+  scrollTrigger?: boolean;
+  as?: "h1" | "h2" | "h3";
+}
+
+const {
+  lines,
+  className = "",
+  stagger = 0.09,
+  delay = 0,
+  scrollTrigger = false,
+  as: Tag = "h1",
+} = Astro.props;
+
+let idx = 0;
+---
+
+<Tag
+  class:list={[
+    className,
+    "kinetic-text",
+    scrollTrigger && "kinetic-scroll-trigger",
+  ]}
+  data-reveal={scrollTrigger ? true : undefined}
+>
+  {
+    lines.map((line) => {
+      const words = line.text.split(" ");
+      return (
+        <span class="kinetic-line">
+          {words.map((word, wi) => {
+            const currentIdx = idx++;
+            const d = (delay + currentIdx * stagger).toFixed(2);
+            // className применяется К КАЖДОМУ СЛОВУ (а не к line),
+            // чтобы gradient/background-clip работал правильно на inline-block
+            return (
+              <>
+                <span
+                  class:list={["kinetic-word", line.className]}
+                  style={`--kw-delay: ${d}s`}
+                >
+                  {word}
+                </span>
+                {wi < words.length - 1 ? " " : ""}
+              </>
+            );
+          })}
+        </span>
+      );
+    })
+  }
+</Tag>
+
+<style is:global>
+  .kinetic-text {
+    overflow: hidden;
+    display: block;
+  }
+
+  .kinetic-line {
+    display: block;
+  }
+
+  .kinetic-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.55em);
+    will-change: opacity, transform;
+    animation: kineticReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1)
+      var(--kw-delay, 0s) forwards;
+  }
+
+  /* Scroll-trigger variant — animation paused until element enters viewport */
+  .kinetic-scroll-trigger .kinetic-word {
+    animation-play-state: paused;
+  }
+  .kinetic-scroll-trigger.animate-reveal-up .kinetic-word,
+  .kinetic-scroll-trigger.in-view .kinetic-word {
+    animation-play-state: running;
+  }
+
+  @keyframes kineticReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(0.55em);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reduced motion — show instantly */
+  @media (prefers-reduced-motion: reduce) {
+    .kinetic-word {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  /* Safety net — after 3s guarantee every word visible even if animation skipped */
+  .kinetic-text .kinetic-word {
+    animation-fill-mode: forwards;
+  }
+</style>

@@ -1,0 +1,238 @@
+---
+// БЛОК 3 — СТУДИЯ + TEAM
+// H2: «Трафик и контент. Один подрядчик. Ноль продакшн-headache.»
+// + Team manifesto (10+ лет маркетинг, 5+ лет IT)
+import CountUp from "../islands/CountUp.tsx";
+---
+
+<section id="studio" class="block relative">
+  <div class="max-w-[1440px] mx-auto w-full">
+    <!-- Eyebrow -->
+    <div class="eyebrow mb-6" data-reveal>Vibe Machine</div>
+
+    <!-- Grid: текст слева, reel placeholder справа -->
+    <div class="grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center">
+      <!-- LEFT: copy -->
+      <div>
+        <h2
+          class="h-display text-[clamp(2rem,5vw,3.75rem)] mb-6 max-w-[18ch]"
+          data-reveal
+        >
+          Трафик и&nbsp;контент. <br />
+          Один подрядчик. <br />
+          <span class="text-gradient-hero">Ноль продакшн-headache.</span>
+        </h2>
+
+        <p
+          class="text-lg text-[var(--color-text-1)] max-w-[42ch] mb-10"
+          data-reveal
+          style="animation-delay:120ms"
+        >
+          Обычно это 3 контракта: стратег, студия-продакшн, медиа-баер.
+          У&nbsp;нас&nbsp;— один.
+        </p>
+
+        <!-- Three lines stagger -->
+        <div class="space-y-4 mb-10">
+          <p
+            class="text-lg md:text-xl leading-snug"
+            data-reveal
+            style="animation-delay:240ms"
+          >
+            <span class="text-[var(--color-accent)] font-semibold"
+              >Под капотом</span
+            >
+            <span class="text-[var(--color-text-1)]"
+              >&nbsp;— лучшие инструменты и специалисты.</span
+            >
+          </p>
+          <p
+            class="text-lg md:text-xl leading-snug"
+            data-reveal
+            style="animation-delay:400ms"
+          >
+            <span class="text-[var(--color-accent)] font-semibold">Снаружи</span>
+            <span class="text-[var(--color-text-1)]"
+              >&nbsp;— поток роликов студийного качества.</span
+            >
+          </p>
+          <p
+            class="text-lg md:text-xl leading-snug"
+            data-reveal
+            style="animation-delay:560ms"
+          >
+            <span class="text-[var(--color-accent)] font-semibold">Объём</span>
+            <span class="text-[var(--color-text-1)]"
+              >&nbsp;— от&nbsp;<strong class="text-[var(--color-text-0)]">50</strong>
+              до&nbsp;<strong class="text-[var(--color-text-0)]">1&nbsp;000</strong> в&nbsp;месяц.</span
+            >
+          </p>
+        </div>
+
+        <!-- Формат ролика — одна строка -->
+        <div
+          class="pt-6 border-t border-white/10"
+          data-reveal
+          style="animation-delay:680ms"
+        >
+          <div class="font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest mb-3">
+            Состав одного ролика
+          </div>
+          <div class="flex flex-wrap gap-3">
+            {
+              [
+                { icon: "💫", label: "Моушен", color: "var(--color-accent)" },
+                { icon: "📊", label: "Инфографика", color: "var(--color-warn)" },
+                { icon: "▶", label: "B-roll", color: "var(--color-info)" },
+                { icon: "🧑", label: "AI-аватар", color: "#A855F7" },
+                { icon: "T", label: "Субтитры", color: "#fff" },
+                { icon: "♪", label: "Голос", color: "var(--color-accent)" },
+                { icon: "🎛", label: "Саунд-дизайн", color: "var(--color-warn)" },
+              ].map((l) => (
+                <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5">
+                  <span
+                    class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold"
+                    style={`background:${l.color};color:var(--color-bg-0)`}
+                  >
+                    {l.icon}
+                  </span>
+                  <span class="text-sm text-[var(--color-text-1)]">{l.label}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: reel player placeholder -->
+      <div class="relative" data-reveal style="animation-delay:160ms">
+        <div
+          class="relative mx-auto w-full max-w-[320px] aspect-[9/16] rounded-[2rem] overflow-hidden bg-gradient-to-br from-[var(--color-bg-2)] to-[var(--color-bg-1)] border border-white/10 shadow-[var(--shadow-card)]"
+        >
+          <!-- Ambient gradient glow -->
+          <div
+            aria-hidden="true"
+            class="absolute inset-0 bg-gradient-to-br from-[rgba(255,204,0,0.1)] via-transparent to-[rgba(255,107,53,0.1)]"
+          >
+          </div>
+
+          <!-- Content stub -->
+          <div class="relative h-full flex flex-col p-6">
+            <!-- Top bar — live -->
+            <div class="flex items-center gap-2 mb-auto">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"
+              ></span>
+              <span class="font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest"
+                >DEMO REEL</span
+              >
+            </div>
+
+            <!-- Center — Play icon -->
+            <div class="flex items-center justify-center">
+              <div
+                class="w-20 h-20 rounded-full bg-[var(--color-accent)]/90 flex items-center justify-center animate-pulse-glow"
+              >
+                <span class="text-3xl text-black ml-1">▶</span>
+              </div>
+            </div>
+
+            <!-- Bottom — caption -->
+            <div class="mt-auto">
+              <div class="font-mono text-xs text-[var(--color-text-2)] mb-1"
+                >@vibemachine</div
+              >
+              <div class="text-sm text-[var(--color-text-0)] leading-snug"
+                >Наша витрина — обновляется каждую неделю.</div
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini stats under reel -->
+        <div
+          class="mt-6 flex justify-center items-center gap-6 text-center font-mono text-xs text-[var(--color-text-2)]"
+        >
+          <div>
+            <div class="text-[var(--color-accent)] text-lg font-bold" data-mock>
+              50+
+            </div>
+            <div>роликов / мес</div>
+          </div>
+          <div class="w-px h-8 bg-white/10"></div>
+          <div>
+            <div class="text-[var(--color-accent)] text-lg font-bold" data-mock>
+              9:16
+            </div>
+            <div>студийно</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team / Expertise — manifesto block -->
+    <div
+      class="mt-20 md:mt-28 card-base max-w-[1120px] mx-auto"
+      data-reveal
+      style="animation-delay:400ms"
+    >
+      <div class="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-14 items-center">
+        <!-- LEFT: manifesto -->
+        <div>
+          <div class="eyebrow mb-5">Команда</div>
+          <h3
+            class="h-display text-[clamp(1.5rem,3.5vw,2.5rem)] mb-5 max-w-[18ch]"
+          >
+            Маркетинг и&nbsp;технологии.
+            <span class="text-gradient-hero">Одна голова.</span>
+          </h3>
+          <p
+            class="text-base md:text-lg text-[var(--color-text-1)] leading-relaxed max-w-[52ch]"
+          >
+            Креативное мышление и&nbsp;техническое — не&nbsp;две разных профессии.
+            Это одно и&nbsp;то&nbsp;же, просто повёрнутое разными сторонами.
+            На&nbsp;этом стыке рождается системный, рабочий креатив.
+          </p>
+        </div>
+
+        <!-- RIGHT: 2 big metrics with count-up -->
+        <div class="flex flex-col gap-5">
+          <div class="flex items-baseline gap-4 pb-5 border-b border-white/10">
+            <div
+              class="font-display font-extrabold text-5xl md:text-6xl text-gradient-hero leading-none tracking-tight tabular-nums"
+            >
+              <CountUp client:visible to={10} suffix="+" duration={1600} />
+            </div>
+            <div>
+              <div
+                class="font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest"
+              >
+                лет
+              </div>
+              <div class="text-[var(--color-text-0)] text-base md:text-lg">
+                в маркетинге
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-baseline gap-4">
+            <div
+              class="font-display font-extrabold text-5xl md:text-6xl text-gradient-hero leading-none tracking-tight tabular-nums"
+            >
+              <CountUp client:visible to={5} suffix="+" duration={1300} />
+            </div>
+            <div>
+              <div
+                class="font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest"
+              >
+                лет
+              </div>
+              <div class="text-[var(--color-text-0)] text-base md:text-lg">
+                в IT и технологиях
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,140 @@
+---
+// БЛОК 2 — ДИАГНОЗ
+// «2026. В РФ. Платный трафик сломан.»
+// 4 зачёркнутых канала — CSS-анимация линии через transform
+
+const channels = [
+  {
+    icon: "🧨",
+    name: "ДИРЕКТ",
+    verdict: "Дорожает. Тает.",
+    note: "CPC растёт. Конверсия падает.",
+  },
+  {
+    icon: "⛔",
+    name: "ТАРГЕТ",
+    verdict: "Недоступен.",
+    note: "Meta Ads — всё. Google — с ограничениями.",
+  },
+  {
+    icon: "📉",
+    name: "БЛОГЕРЫ",
+    verdict: "Раздуты. Не измерить.",
+    note: "Рынок перегрет ×2–×5 за два года.",
+  },
+  {
+    icon: "⏳",
+    name: "SEO",
+    verdict: "Слишком долго.",
+    note: "Первые результаты — через 6–12 месяцев.",
+  },
+];
+---
+
+<section id="diagnosis" class="block relative">
+  <div class="max-w-[1280px] mx-auto w-full">
+    <!-- Eyebrow -->
+    <div class="eyebrow mb-6" data-reveal>
+      Что произошло с платным трафиком в 2026
+    </div>
+
+    <!-- Headline -->
+    <h2
+      class="h-display text-[clamp(2rem,5.5vw,4rem)] mb-6 max-w-[22ch]"
+      data-reveal
+    >
+      Четыре канала. <br />
+      <span class="text-[var(--color-text-1)]"
+        >Четыре разных способа потерять бюджет.</span
+      >
+    </h2>
+
+    <p
+      class="text-lg text-[var(--color-text-1)] max-w-[50ch] mb-16"
+      data-reveal
+      style="animation-delay:120ms"
+    >
+      У каждого бренда в РФ одна и та же картина. Бюджет на маркетинг
+      остался — а тратить его стало некуда.
+    </p>
+
+    <!-- 4 карточки сломанных каналов -->
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-20"
+    >
+      {
+        channels.map((ch, i) => (
+          <div
+            class="card-base diagnosis-card relative overflow-hidden"
+            data-reveal
+            style={`animation-delay:${240 + i * 100}ms`}
+          >
+            {/* CSS-based cross line — rotate + scaleX from 0 to 1 on in-view */}
+            <div class="cross-line" aria-hidden="true" />
+
+            <div class="relative">
+              <div class="text-3xl mb-4">{ch.icon}</div>
+              <div class="font-mono text-xs text-[var(--color-text-2)] tracking-widest uppercase mb-2">
+                {ch.name}
+              </div>
+              <div class="h-display text-2xl md:text-3xl mb-2">
+                {ch.verdict}
+              </div>
+              <div class="text-sm text-[var(--color-text-1)] leading-relaxed">
+                {ch.note}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Transition — жёлтая строка -->
+    <div class="text-center" data-reveal style="animation-delay:800ms">
+      <p class="h-display text-[clamp(1.5rem,4vw,3rem)] max-w-[28ch] mx-auto">
+        Остался один канал. <br />
+        <span class="text-gradient-hero">
+          Короткое вертикальное видео.
+        </span>
+      </p>
+      <p class="mt-6 text-[var(--color-text-1)] font-mono text-sm tracking-wide">
+        TikTok · Reels · Shorts · ВК&nbsp;Видео
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* CSS-линия зачёркивания — rotate + scaleX, animate on reveal */
+  .diagnosis-card .cross-line {
+    position: absolute;
+    top: 50%;
+    left: -10%;
+    right: -10%;
+    height: 1.5px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 204, 0, 0.7) 10%,
+      rgba(255, 204, 0, 0.7) 90%,
+      transparent 100%
+    );
+    transform: rotate(-8deg) scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .diagnosis-card.animate-reveal-up .cross-line,
+  .diagnosis-card.in-view .cross-line {
+    transform: rotate(-8deg) scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .diagnosis-card .cross-line {
+      transform: rotate(-8deg) scaleX(1);
+      transition: none;
+    }
+  }
+</style>

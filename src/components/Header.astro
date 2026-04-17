@@ -1,0 +1,49 @@
+---
+// Sticky header, minimal
+const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/60 border-b border-white/5"
+>
+  <div
+    class="max-w-[1440px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between"
+  >
+    <!-- Logo -->
+    <a
+      href="#top"
+      class="flex items-center gap-2 font-display font-extrabold tracking-tight text-[var(--color-text-0)]"
+    >
+      <span class="text-[var(--color-accent)] text-xl">⚡</span>
+      <span class="text-base md:text-lg tracking-[-0.02em]"
+        >VIBE MACHINE</span
+      >
+    </a>
+
+    <!-- Nav — hidden on mobile -->
+    <nav class="hidden md:flex items-center gap-8 text-sm text-[var(--color-text-1)]">
+      <a href="#diagnosis" class="hover:text-[var(--color-text-0)] transition-colors"
+        >Канал</a
+      >
+      <a href="#studio" class="hover:text-[var(--color-text-0)] transition-colors"
+        >Студия</a
+      >
+      <a href="#pricing" class="hover:text-[var(--color-text-0)] transition-colors"
+        >Пакеты</a
+      >
+      <a href="#faq" class="hover:text-[var(--color-text-0)] transition-colors"
+        >FAQ</a
+      >
+    </nav>
+
+    <!-- CTA -->
+    <a
+      href={TELEGRAM_BOT_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-primary text-sm px-5 py-2.5"
+    >
+      Запустить <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</header>
