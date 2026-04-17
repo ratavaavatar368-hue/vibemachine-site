@@ -1,6 +1,5 @@
 ---
 // БЛОК 1 — HERO
-// CSS-animated plasma glow background — 0 KB JS (removed Three.js/R3F)
 import KineticText from "../KineticText.astro";
 import MagneticButton from "../islands/MagneticButton.tsx";
 import TelegramIcon from "../TelegramIcon.astro";
@@ -8,17 +7,18 @@ import TelegramIcon from "../TelegramIcon.astro";
 const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
 ---
 
-<section
-  id="top"
-  class="block block-tall relative overflow-hidden"
->
-  <!-- CSS plasma glow — animated radial gradient, 0 KB JS -->
+<section id="top" class="block block-tall relative overflow-hidden">
+  <!-- CSS plasma glow -->
   <div class="hero-plasma" aria-hidden="true"></div>
 
-  <div
-    class="relative z-10 max-w-[1200px] mx-auto text-center flex flex-col items-center"
-  >
-    <!-- H1 — kinetic typography (CSS-only) -->
+  <div class="relative z-10 max-w-[1200px] mx-auto text-center flex flex-col items-center">
+
+    <!-- Eyebrow — чётко говорит что это такое -->
+    <div class="hero-entry eyebrow mb-6 justify-center" style="animation-delay:0s">
+      Фабрика вертикального видео
+    </div>
+
+    <!-- H1 — kinetic typography -->
     <KineticText
       as="h1"
       lines={[
@@ -30,7 +30,7 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       delay={0.15}
     />
 
-    <!-- Sub — 2-в-1 -->
+    <!-- Sub -->
     <p
       class="hero-entry text-lg md:text-xl text-[var(--color-text-1)] max-w-[32ch] mb-12 leading-snug"
       style="animation-delay:0.3s"
@@ -40,11 +40,8 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       Над продакшеном думаем мы.
     </p>
 
-    <!-- CTAs -->
-    <div
-      class="hero-entry flex flex-col sm:flex-row items-center gap-4 mb-16"
-      style="animation-delay:0.5s"
-    >
+    <!-- CTA -->
+    <div class="hero-entry flex items-center gap-4 mb-16" style="animation-delay:0.5s">
       <MagneticButton
         client:load
         href={TELEGRAM_BOT_URL}
@@ -55,18 +52,52 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
         <TelegramIcon size={18} />
         <span>Запустить поток</span>
       </MagneticButton>
-
     </div>
 
-    <!-- Platform strip -->
-    <div
-      class="hero-entry flex flex-wrap items-center justify-center gap-2"
-      style="animation-delay:0.7s"
-    >
-      <span class="platform-chip">TikTok</span>
-      <span class="platform-chip">Instagram&nbsp;Reels</span>
-      <span class="platform-chip">YouTube&nbsp;Shorts</span>
-      <span class="platform-chip">ВК&nbsp;Видео</span>
+    <!-- Platform logos strip -->
+    <div class="hero-entry flex flex-col items-center gap-4" style="animation-delay:0.7s">
+      <p class="font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest">Раздаём на платформы</p>
+      <div class="platform-logos">
+
+        <!-- TikTok -->
+        <div class="platform-logo-item">
+          <svg viewBox="0 0 24 24" aria-label="TikTok" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.53a8.16 8.16 0 0 0 4.77 1.52V7.61a4.84 4.84 0 0 1-1-.92z"/>
+          </svg>
+          <span>TikTok</span>
+        </div>
+
+        <div class="platform-divider"></div>
+
+        <!-- Instagram Reels -->
+        <div class="platform-logo-item">
+          <svg viewBox="0 0 24 24" aria-label="Instagram" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          <span>Reels</span>
+        </div>
+
+        <div class="platform-divider"></div>
+
+        <!-- YouTube Shorts -->
+        <div class="platform-logo-item">
+          <svg viewBox="0 0 24 24" aria-label="YouTube" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span>Shorts</span>
+        </div>
+
+        <div class="platform-divider"></div>
+
+        <!-- VK Video -->
+        <div class="platform-logo-item">
+          <svg viewBox="0 0 24 24" aria-label="ВКонтакте" fill="currentColor">
+            <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1.01-1.49-.9-1.49.228v1.497c0 .36-.124.576-1.178.576-1.627 0-3.43-.992-4.703-2.84C6.21 12.37 5.5 10.21 5.5 10.04c0-.18.108-.36.456-.36h1.748c.348 0 .468.156.6.528.672 1.94 1.8 3.637 2.256 3.637.168 0 .24-.072.24-.468v-1.837c-.048-.852-.504-.924-.504-1.224 0-.156.132-.312.336-.312h2.748c.3 0 .408.156.408.516v2.472c0 .3.132.396.216.396.168 0 .312-.108.624-.42 1.02-1.092 1.752-2.76 1.752-2.76.096-.18.264-.36.6-.36h1.752c.528 0 .636.264.528.516-.216.996-2.28 3.816-2.28 3.816-.18.288-.24.42 0 .732.168.228.72.7 1.08 1.128.672.756 1.188 1.392 1.32 1.824.156.432-.06.648-.492.648z"/>
+          </svg>
+          <span>ВК Видео</span>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -76,14 +107,12 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--color-text-2)] text-xs z-10"
   >
     <span class="font-mono uppercase tracking-widest">Листай</span>
-    <span
-      class="block w-[1px] h-8 bg-gradient-to-b from-[var(--color-accent)] to-transparent"
-    ></span>
+    <span class="block w-[1px] h-8 bg-gradient-to-b from-[var(--color-accent)] to-transparent"></span>
   </div>
 </section>
 
 <style>
-  /* ── CSS Plasma Glow — replaces Three.js/R3F (saves ~1 MB JS) ── */
+  /* ── CSS Plasma Glow ── */
   .hero-plasma {
     position: absolute;
     inset: 0;
@@ -91,10 +120,6 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     z-index: 0;
     overflow: hidden;
   }
-
-  /* Main amber halo — sits behind the ⚡ icon
-     blur встроен прямо в radial-gradient (через мягкие stops) вместо
-     дорогостоящего filter:blur(), который форсит GPU recomposite */
   .hero-plasma::before {
     content: "";
     position: absolute;
@@ -111,13 +136,10 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       rgba(255, 80,  0, 0.02) 65%,
       transparent 80%
     );
-    /* NO filter:blur — saves GPU layer recomposition */
     transform: translateX(-50%);
     animation: plasmaBreath 5s ease-in-out infinite;
-    will-change: opacity;           /* только opacity — cheap */
+    will-change: opacity;
   }
-
-  /* Secondary warm core */
   .hero-plasma::after {
     content: "";
     position: absolute;
@@ -136,39 +158,75 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
     animation: plasmaCore 7s ease-in-out infinite;
     will-change: opacity;
   }
-
-  @keyframes plasmaBreath {
-    0%, 100% { opacity: 0.5; }
-    50%       { opacity: 1;   }
+  @keyframes plasmaBreath { 0%,100%{opacity:.5} 50%{opacity:1} }
+  @keyframes plasmaCore   { 0%,100%{opacity:.35} 40%{opacity:.9} 70%{opacity:.45} }
+  @media (prefers-reduced-motion:reduce) {
+    .hero-plasma::before, .hero-plasma::after { animation:none; opacity:.6; }
   }
 
-  @keyframes plasmaCore {
-    0%, 100% { opacity: 0.35; }
-    40%       { opacity: 0.9;  }
-    70%       { opacity: 0.45; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-plasma::before,
-    .hero-plasma::after {
-      animation: none;
-      opacity: 0.6;
-    }
-  }
-
-  /* ── Hero above-fold reveal — NO IntersectionObserver needed ──
-     Fires immediately on load, no IO wait, no 900–1300ms penalty  */
+  /* ── Hero entry animation (no IO needed) ── */
   .hero-entry {
     opacity: 0;
-    animation: heroFadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: heroFadeUp 0.65s cubic-bezier(0.16,1,0.3,1) both;
   }
-
   @keyframes heroFadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .hero-entry { animation:none; opacity:1; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero-entry { animation: none; opacity: 1; }
+  /* ── Platform logos strip ── */
+  .platform-logos {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 9999px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .platform-logo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 1rem;
+    color: var(--color-text-1);
+    transition: color 200ms;
+  }
+
+  .platform-logo-item:hover {
+    color: var(--color-text-0);
+  }
+
+  .platform-logo-item svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .platform-logo-item span {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .platform-divider {
+    width: 1px;
+    height: 16px;
+    background: rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    .platform-logos { gap: 0; padding: 0.5rem 1rem; }
+    .platform-logo-item { padding: 0.25rem 0.6rem; }
   }
 </style>
