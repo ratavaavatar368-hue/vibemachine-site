@@ -285,11 +285,13 @@ const channels = [
       );
     }
 
-    /* Заголовок на мобиле — чёрный, меньше шрифт чтоб влезало */
+    /* Заголовок на мобиле — чёрный, меньше шрифт, без переноса слов */
     .diagnosis-banner__title {
-      font-size: clamp(1.25rem, 6vw, 1.75rem);
+      font-size: clamp(1.2rem, 5.5vw, 1.65rem);
       color: #000000;
-      overflow-wrap: break-word;
+      /* НЕ используем overflow-wrap/word-break — они режут слова */
+      word-break: normal;
+      overflow-wrap: normal;
     }
 
     /* Градиентный span на жёлтом — делаем чёрным */
