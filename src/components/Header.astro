@@ -4,9 +4,14 @@ const TELEGRAM_BOT_URL = "https://t.me/vebemachine_bot";
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/5"
-  style="padding-top: env(safe-area-inset-top, 0px);"
+  class="fixed top-0 left-0 right-0 z-50 border-b border-white/5"
+  style="background-color:#000000; padding-top: env(safe-area-inset-top, 0px);"
 >
+  <!-- Fills the iPhone notch / Dynamic Island area with solid black -->
+  <div
+    aria-hidden="true"
+    style="position:absolute;top:calc(-1 * env(safe-area-inset-top,0px));left:0;right:0;height:env(safe-area-inset-top,0px);background:#000000;pointer-events:none;"
+  ></div>
   <div
     class="max-w-[1440px] mx-auto px-4 md:px-12 py-3 md:py-4 flex items-center justify-between gap-3"
   >
