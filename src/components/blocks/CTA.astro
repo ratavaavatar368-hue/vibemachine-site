@@ -4,7 +4,7 @@ import MagneticButton from "../islands/MagneticButton.tsx";
 import KineticText from "../KineticText.astro";
 import TelegramIcon from "../TelegramIcon.astro";
 
-const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
+const TELEGRAM_BOT_URL = "https://t.me/vebemachine_bot";
 ---
 
 <section class="block block-tall relative overflow-hidden">
@@ -58,12 +58,12 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
         href={TELEGRAM_BOT_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="btn-primary text-lg px-10 py-5"
+        className="btn-primary w-full sm:w-auto text-base sm:text-lg px-6 sm:px-10 py-4 sm:py-5"
         strength={0.35}
         radius={140}
       >
         <TelegramIcon size={20} />
-        <span>Запустить Спринт — $1 000</span>
+        <span class="whitespace-nowrap">Запустить Спринт — $1 000</span>
       </MagneticButton>
 
     </div>

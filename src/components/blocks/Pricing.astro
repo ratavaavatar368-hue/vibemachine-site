@@ -3,7 +3,37 @@
 // 3D tilt на каждую карточку + conic-gradient animation на Factory
 import TiltCard from "../islands/TiltCard.tsx";
 
-const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
+const TELEGRAM_BOT_URL = "https://t.me/vebemachine_bot";
+
+// Что входит — одинаково для всех пакетов
+const features = [
+  {
+    group: "Стратегия и аналитика",
+    items: [
+      "Поиск трендов",
+      "Разработка стратегии",
+      "Создание тем",
+      "Пересмотр стратегии каждые 100 видео",
+      "Аналитика",
+    ],
+  },
+  {
+    group: "Креатив и производство",
+    items: [
+      "Формирование нарративов",
+      "Подбор архетипов",
+      "Хуки и сценарии",
+      "Производство видео",
+    ],
+  },
+  {
+    group: "Инфраструктура",
+    items: [
+      "Расходы включены",
+      "Готовые файлы для всех форматов",
+    ],
+  },
+];
 ---
 
 <section id="pricing" class="block relative">
@@ -28,8 +58,8 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       </p>
     </div>
 
-    <!-- 3 cards -->
-    <div class="grid lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+    <!-- 3 cards — gap-10 on mobile for comfortable spacing -->
+    <div class="grid lg:grid-cols-3 gap-10 lg:gap-8 items-stretch">
       <!-- SPRINT -->
       <TiltCard client:visible className="flex" maxTilt={4}>
       <div
@@ -43,7 +73,7 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
         <h3 class="h-display text-3xl mb-1">СПРИНТ</h3>
         <div class="text-sm text-[var(--color-text-2)] mb-6">50 видео</div>
 
-        <div class="my-8">
+        <div class="my-6">
           <div class="font-display font-extrabold text-6xl text-[var(--color-text-0)]">
             $20
           </div>
@@ -52,7 +82,7 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
           </div>
         </div>
 
-        <div class="space-y-3 text-sm mb-8 pt-6 border-t border-white/5">
+        <div class="space-y-3 text-sm pb-6 border-b border-white/5">
           <div class="flex justify-between">
             <span class="text-[var(--color-text-2)]">Итого</span>
             <span class="font-bold">$1 000</span>
@@ -61,6 +91,25 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
             <span class="text-[var(--color-text-2)]">Предоплата</span>
             <span class="font-bold">100%</span>
           </div>
+        </div>
+
+        <!-- Что входит -->
+        <div class="pt-5 mb-8 space-y-4">
+          {features.map((group) => (
+            <div>
+              <div class="font-mono text-[10px] text-[var(--color-text-2)] uppercase tracking-widest mb-2">
+                {group.group}
+              </div>
+              <ul class="space-y-1.5">
+                {group.items.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-[var(--color-text-1)]">
+                    <span class="text-[var(--color-accent)] shrink-0 mt-px">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         <a
@@ -96,7 +145,7 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
         <h3 class="h-display text-3xl mb-1">СТАРТ</h3>
         <div class="text-sm text-[var(--color-text-2)] mb-6">100 видео</div>
 
-        <div class="my-8">
+        <div class="my-6">
           <div
             class="font-display font-extrabold text-6xl text-gradient-hero"
           >
@@ -107,7 +156,7 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
           </div>
         </div>
 
-        <div class="space-y-3 text-sm mb-8 pt-6 border-t border-white/5">
+        <div class="space-y-3 text-sm pb-6 border-b border-white/5">
           <div class="flex justify-between">
             <span class="text-[var(--color-text-2)]">Итого</span>
             <span class="font-bold">$1 500</span>
@@ -116,6 +165,25 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
             <span class="text-[var(--color-text-2)]">Предоплата</span>
             <span class="font-bold">100%</span>
           </div>
+        </div>
+
+        <!-- Что входит -->
+        <div class="pt-5 mb-8 space-y-4">
+          {features.map((group) => (
+            <div>
+              <div class="font-mono text-[10px] text-[var(--color-text-2)] uppercase tracking-widest mb-2">
+                {group.group}
+              </div>
+              <ul class="space-y-1.5">
+                {group.items.map((item) => (
+                  <li class="flex items-start gap-2 text-sm text-[var(--color-text-1)]">
+                    <span class="text-[var(--color-accent)] shrink-0 mt-px">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         <a
@@ -152,18 +220,50 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
             до <span class="text-[var(--color-text-0)] font-bold">1 000</span> видео / мес
           </div>
 
-          <div class="my-8">
+          <div class="my-6">
             <div class="h-display text-3xl text-[var(--color-text-0)]">
               Контент-завод<br />под ваш бренд
             </div>
           </div>
 
-          <ul class="space-y-2 text-sm text-[var(--color-text-1)] mb-8 pt-6 border-t border-white/5">
-            <li>— Custom pipeline под нишу</li>
-            <li>— Выделенная команда</li>
-            <li>— Аналитика + А/B тесты</li>
-            <li>— Managed или build&nbsp;&amp;&nbsp;transfer</li>
-          </ul>
+          <!-- Factory-specific extras -->
+          <div class="space-y-2 text-sm text-[var(--color-text-1)] pb-6 border-b border-white/5">
+            <div class="flex items-start gap-2">
+              <span class="text-[var(--color-accent)] shrink-0 mt-px">✓</span>
+              <span>Custom pipeline под нишу</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-[var(--color-accent)] shrink-0 mt-px">✓</span>
+              <span>Выделенная команда</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-[var(--color-accent)] shrink-0 mt-px">✓</span>
+              <span>А/B тесты + расширенная аналитика</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-[var(--color-accent)] shrink-0 mt-px">✓</span>
+              <span>Managed или build&nbsp;&amp;&nbsp;transfer</span>
+            </div>
+          </div>
+
+          <!-- Что входит -->
+          <div class="pt-5 mb-8 space-y-4">
+            {features.map((group) => (
+              <div>
+                <div class="font-mono text-[10px] text-[var(--color-text-2)] uppercase tracking-widest mb-2">
+                  {group.group}
+                </div>
+                <ul class="space-y-1.5">
+                  {group.items.map((item) => (
+                    <li class="flex items-start gap-2 text-sm text-[var(--color-text-1)]">
+                      <span class="text-[var(--color-accent)] shrink-0 mt-px">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
 
           <div class="mb-6 font-mono text-xs text-[var(--color-text-2)] uppercase tracking-widest">
             обсуждаем индивидуально
@@ -181,15 +281,6 @@ const TELEGRAM_BOT_URL = "https://t.me/vibemachine_bot";
       </div>
       </TiltCard>
     </div>
-
-    <!-- Footnote strip -->
-    <p
-      class="mt-12 text-center font-mono text-xs text-[var(--color-text-2)] tracking-wide"
-      data-reveal
-      style="animation-delay:600ms"
-    >
-      Все пакеты: полный состав · 100% предоплата · файлы под TikTok · Reels · Shorts · ВК&nbsp;Видео
-    </p>
   </div>
 </section>
 
