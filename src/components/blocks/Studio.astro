@@ -8,7 +8,9 @@ import CountUp from "../islands/CountUp.tsx";
 <section id="studio" class="block relative">
   <div class="max-w-[1440px] mx-auto w-full">
     <!-- Eyebrow -->
-    <div class="eyebrow mb-6 justify-center lg:justify-start" data-reveal>Vibe Machine</div>
+    <div class="flex justify-center lg:justify-start mb-6" data-reveal>
+      <div class="eyebrow">Vibe Machine</div>
+    </div>
 
     <!-- Grid: текст слева, reel placeholder справа -->
     <div class="grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center">
@@ -265,7 +267,7 @@ import CountUp from "../islands/CountUp.tsx";
   .reel-phone {
     position: relative;
     /* fluid: fills available space on mobile, fixed on desktop */
-    width: min(220px, 56vw);
+    width: min(280px, 72vw);
     flex-shrink: 0;
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 32px;
@@ -278,11 +280,11 @@ import CountUp from "../islands/CountUp.tsx";
   }
 
   @media (min-width: 640px) {
-    .reel-phone { width: 260px; border-radius: 36px; }
+    .reel-phone { width: 280px; border-radius: 36px; }
   }
 
   @media (min-width: 1280px) {
-    .reel-phone { width: 300px; }
+    .reel-phone { width: 320px; }
   }
 
   /* Videos container */

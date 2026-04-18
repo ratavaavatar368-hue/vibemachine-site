@@ -12,8 +12,8 @@ import CTA from "../components/blocks/CTA.astro";
 
 <BaseLayout>
   <Header />
-  <!-- pt-[4.25rem] = clearance for fixed header (~68px) on all viewport sizes -->
-  <main class="pt-[4.25rem]">
+  <!-- padding-top = fixed header height + iOS safe-area-inset-top (notch/Dynamic Island) -->
+  <main style="padding-top: calc(4.25rem + env(safe-area-inset-top, 0px))">
     <Hero />
     <Diagnosis />
     <Studio />
