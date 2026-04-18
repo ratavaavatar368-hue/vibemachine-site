@@ -94,7 +94,7 @@ const channels = [
       <div class="diagnosis-banner__line" aria-hidden="true"></div>
       <p class="diagnosis-banner__title">
         Остался один канал.<br />
-        <strong>Короткие вертикальные видео.</strong>
+        <span class="text-gradient-hero banner-accent">Короткие вертикальные&nbsp;видео.</span>
       </p>
       <p class="diagnosis-banner__sub">
         TikTok · Reels · Shorts · ВК&nbsp;Видео
@@ -154,15 +154,16 @@ const channels = [
     }
   }
 
-  /* ── Transition banner — жёлтый full-bleed ── */
+  /* ── Transition banner ── */
   .diagnosis-banner {
     margin-left: -1.5rem;
     margin-right: -1.5rem;
     margin-bottom: -4rem;
     padding: 3rem 1.5rem;
     text-align: center;
-    background: var(--color-accent);   /* #ffcc00 */
     position: relative;
+    /* DESKTOP default — тёмный оригинальный стиль */
+    background: var(--color-bg-0);
   }
 
   @media (min-width: 768px) {
@@ -183,41 +184,22 @@ const channels = [
     }
   }
 
-  /* Точечный паттерн поверх жёлтого фона */
-  .diagnosis-banner__dots {
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
-    background-size: 18px 18px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Декоративный ⚡ в правом углу — filter:brightness(0) → черный emoji */
+  /* Декоративные элементы — скрыты на десктопе */
+  .diagnosis-banner__dots,
   .diagnosis-banner__bolt {
-    position: absolute;
-    right: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: clamp(4rem, 12vw, 9rem);
-    opacity: 0.12;
-    filter: brightness(0);   /* превращает жёлтый emoji в чёрный */
-    pointer-events: none;
-    line-height: 1;
-    z-index: 0;
-    user-select: none;
+    display: none;
   }
 
-  /* Горизонтальные чёрные линии сверху и снизу */
+  /* Линии — жёлтые на десктопе (оригинал) */
   .diagnosis-banner__line {
     width: 100%;
     height: 1px;
     background: linear-gradient(
       to right,
       transparent,
-      rgba(0, 0, 0, 0.25) 30%,
-      rgba(0, 0, 0, 0.45) 50%,
-      rgba(0, 0, 0, 0.25) 70%,
+      rgba(255, 204, 0, 0.5) 30%,
+      rgba(255, 204, 0, 0.8) 50%,
+      rgba(255, 204, 0, 0.5) 70%,
       transparent
     );
     margin: 0 auto 2rem;
@@ -229,34 +211,95 @@ const channels = [
     margin: 2rem auto 0;
   }
 
+  /* Заголовок — оригинальный белый на десктопе */
   .diagnosis-banner__title {
     font-family: var(--font-display);
     font-weight: 800;
-    /* уменьшен min: текст "Короткие вертикальные видео." не переполняет мобилку */
-    font-size: clamp(1.3rem, 4.5vw, 3.5rem);
+    font-size: clamp(1.75rem, 5vw, 3.75rem);
     line-height: 1.1;
-    color: #000000;
+    color: var(--color-text-0);
     margin: 0 0 1rem;
     letter-spacing: -0.02em;
-    overflow-wrap: break-word;
-    word-break: break-word;
     position: relative;
     z-index: 1;
-  }
-
-  .diagnosis-banner__title strong {
-    font-weight: 900;
   }
 
   .diagnosis-banner__sub {
     font-family: var(--font-mono);
     font-size: 0.8125rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.55);
+    color: var(--color-text-2);
     margin: 0;
     position: relative;
     z-index: 1;
+  }
+
+  /* ── MOBILE only (< 768px) — жёлтый баннер с дизайном ── */
+  @media (max-width: 767px) {
+    .diagnosis-banner {
+      background: var(--color-accent);  /* жёлтый */
+    }
+
+    /* Точечный паттерн */
+    .diagnosis-banner__dots {
+      display: block;
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
+      background-size: 18px 18px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ⚡ декорация — чёрная через filter */
+    .diagnosis-banner__bolt {
+      display: block;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(3.5rem, 22vw, 6rem);
+      opacity: 0.1;
+      filter: brightness(0);
+      pointer-events: none;
+      line-height: 1;
+      z-index: 0;
+      user-select: none;
+    }
+
+    /* Линии на мобиле — чёрные */
+    .diagnosis-banner__line {
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(0, 0, 0, 0.25) 30%,
+        rgba(0, 0, 0, 0.45) 50%,
+        rgba(0, 0, 0, 0.25) 70%,
+        transparent
+      );
+    }
+
+    /* Заголовок на мобиле — чёрный, меньше шрифт чтоб влезало */
+    .diagnosis-banner__title {
+      font-size: clamp(1.25rem, 6vw, 1.75rem);
+      color: #000000;
+      overflow-wrap: break-word;
+    }
+
+    /* Градиентный span на жёлтом — делаем чёрным */
+    .diagnosis-banner__title .banner-accent {
+      background: none;
+      -webkit-background-clip: unset;
+      -webkit-text-fill-color: #000000;
+      background-clip: unset;
+      color: #000000;
+      font-weight: 900;
+    }
+
+    .diagnosis-banner__sub {
+      color: rgba(0, 0, 0, 0.55);
+    }
   }
 </style>
