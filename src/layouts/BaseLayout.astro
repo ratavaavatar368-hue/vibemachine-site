@@ -143,7 +143,8 @@ const {
 
   /* Hero + CTA finale — фулл viewport для удара, остальные — по контенту */
   section.block-tall {
-    min-height: 90vh;
+    min-height: 90vh;      /* fallback for older browsers */
+    min-height: 90dvh;     /* dynamic viewport height — accounts for mobile address bar */
   }
 
   /* Smooth anchor scroll — нативный CSS, compositor-threaded, 0 JS */
