@@ -193,14 +193,15 @@ const channels = [
     z-index: 0;
   }
 
-  /* Декоративный ⚡ в правом углу — меньше, чтоб не выходить за края */
+  /* Декоративный ⚡ в правом углу — filter:brightness(0) → черный emoji */
   .diagnosis-banner__bolt {
     position: absolute;
     right: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
     font-size: clamp(4rem, 12vw, 9rem);
-    opacity: 0.1;
+    opacity: 0.12;
+    filter: brightness(0);   /* превращает жёлтый emoji в чёрный */
     pointer-events: none;
     line-height: 1;
     z-index: 0;
