@@ -17,11 +17,12 @@ import CountUp from "../islands/CountUp.tsx";
       <!-- LEFT: copy -->
       <div>
         <h2
-          class="h-display text-[clamp(2rem,5vw,3.75rem)] mb-6 max-w-[18ch] text-center lg:text-left mx-auto lg:mx-0"
+          class="h-display text-[clamp(1.65rem,5vw,3.75rem)] mb-6 max-w-[18ch] text-center lg:text-left mx-auto lg:mx-0"
+          style="overflow-wrap: break-word; word-break: break-word;"
           data-reveal
         >
-          Трафик и&nbsp;контент. <br />
-          Один подрядчик. <br />
+          Трафик и&nbsp;контент.<br class="hidden md:inline" />
+          Один подрядчик.<br class="hidden md:inline" />
           <span class="text-gradient-hero">Ноль продакшн-headache.</span>
         </h2>
 
@@ -116,7 +117,7 @@ import CountUp from "../islands/CountUp.tsx";
           <button
             id="reel-prev"
             aria-label="Предыдущее видео"
-            class="reel-arrow hidden sm:flex"
+            class="reel-arrow"
           >
             ‹
           </button>
@@ -164,7 +165,7 @@ import CountUp from "../islands/CountUp.tsx";
           <button
             id="reel-next"
             aria-label="Следующее видео"
-            class="reel-arrow hidden sm:flex"
+            class="reel-arrow"
           >
             ›
           </button>
@@ -349,8 +350,9 @@ import CountUp from "../islands/CountUp.tsx";
     margin-left: 4px;
   }
 
-  /* Arrow buttons */
+  /* Arrow buttons — hidden on mobile, show at sm+ via CSS (not Tailwind, to avoid cascade conflict) */
   .reel-arrow {
+    display: none; /* hidden by default on mobile */
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -359,12 +361,15 @@ import CountUp from "../islands/CountUp.tsx";
     color: var(--color-text-0);
     font-size: 1.5rem;
     line-height: 1;
-    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
     transition: border-color 200ms, background 200ms, transform 200ms;
+  }
+
+  @media (min-width: 640px) {
+    .reel-arrow { display: flex; }
   }
 
   .reel-arrow:hover {
