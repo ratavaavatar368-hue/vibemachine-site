@@ -180,8 +180,12 @@ const {
 
   /* Mobile: tighter gap between FAQ and CTA */
   @media (max-width: 767px) {
-    #faq  { padding-bottom: 1.5rem !important; }
-    #cta  { padding-top:    2rem   !important; }
+    #faq { padding-bottom: 1rem !important; }
+    #cta {
+      padding-top: 2rem !important;
+      min-height: unset !important;
+      justify-content: flex-start !important;
+    }
   }
 
   /* Section divider — thin yellow line between blocks */
