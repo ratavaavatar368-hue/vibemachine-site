@@ -84,15 +84,13 @@ const channels = [
       }
     </div>
 
-    <!-- Transition — жёлтая строка -->
-    <div class="text-center" data-reveal style="animation-delay:800ms">
-      <p class="h-display text-[clamp(1.5rem,4vw,3rem)] max-w-[28ch] mx-auto">
-        Остался один канал. <br />
-        <span class="text-gradient-hero">
-          Короткое вертикальное видео.
-        </span>
+    <!-- Transition — full-bleed жёлтый баннер (Вариант Б) -->
+    <div class="diagnosis-banner" data-reveal style="animation-delay:800ms">
+      <p class="diagnosis-banner__title">
+        Остался один канал.<br />
+        Короткое вертикальное видео.
       </p>
-      <p class="mt-6 text-[var(--color-text-1)] font-mono text-sm tracking-wide">
+      <p class="diagnosis-banner__sub">
         TikTok · Reels · Shorts · ВК&nbsp;Видео
       </p>
     </div>
@@ -147,5 +145,54 @@ const channels = [
       transform: scaleX(1);
       transition: none;
     }
+  }
+
+  /* ── Transition banner (Вариант Б) — жёлтый full-bleed ── */
+  .diagnosis-banner {
+    /* Вырываем из section padding, растягиваем на полную ширину */
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-bottom: -4rem;   /* перекрываем нижний padding секции */
+    padding: 2.5rem 1.5rem;
+    background: var(--color-accent);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .diagnosis-banner {
+      margin-left: -3rem;
+      margin-right: -3rem;
+      margin-bottom: -5.5rem;
+      padding: 3rem 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .diagnosis-banner {
+      margin-left: -6rem;
+      margin-right: -6rem;
+      margin-bottom: -7rem;
+      padding: 3.5rem 6rem;
+    }
+  }
+
+  .diagnosis-banner__title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    color: #000;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .diagnosis-banner__sub {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 0;
   }
 </style>
