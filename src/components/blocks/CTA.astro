@@ -7,7 +7,7 @@ import TelegramIcon from "../TelegramIcon.astro";
 const TELEGRAM_BOT_URL = "https://t.me/vebemachine_bot";
 ---
 
-<section class="block block-tall relative overflow-hidden">
+<section class="block block-tall relative overflow-hidden cta-section">
   <!-- Ambient glow background -->
   <div
     aria-hidden="true"
@@ -61,3 +61,11 @@ const TELEGRAM_BOT_URL = "https://t.me/vebemachine_bot";
 
   </div>
 </section>
+
+<style>
+  @media (max-width: 767px) {
+    .cta-section {
+      padding-top: 2rem;
+    }
+  }
+</style>

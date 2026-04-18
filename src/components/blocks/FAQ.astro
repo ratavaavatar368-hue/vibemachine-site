@@ -30,7 +30,7 @@ const qa = [
 ];
 ---
 
-<section id="faq" class="block relative">
+<section id="faq" class="block relative faq-section">
   <div class="max-w-[960px] mx-auto w-full">
     <div class="mb-12 md:mb-16">
       <div class="flex justify-center lg:justify-start mb-5" data-reveal>
@@ -97,5 +97,11 @@ const qa = [
   .faq-accordion summary::marker {
     display: none;
     content: '';
+  }
+
+  @media (max-width: 767px) {
+    .faq-section {
+      padding-bottom: 1.5rem;
+    }
   }
 </style>
