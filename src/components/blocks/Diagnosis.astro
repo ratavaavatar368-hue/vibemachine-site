@@ -84,15 +84,17 @@ const channels = [
       }
     </div>
 
-    <!-- Transition — full-bleed жёлтый баннер (Вариант Б) -->
+    <!-- Transition banner — тёмный стиль с жёлтым акцентом -->
     <div class="diagnosis-banner" data-reveal style="animation-delay:800ms">
+      <div class="diagnosis-banner__line" aria-hidden="true"></div>
       <p class="diagnosis-banner__title">
         Остался один канал.<br />
-        Короткое вертикальное видео.
+        <span class="text-gradient-hero">Короткие вертикальные&nbsp;видео.</span>
       </p>
       <p class="diagnosis-banner__sub">
         TikTok · Reels · Shorts · ВК&nbsp;Видео
       </p>
+      <div class="diagnosis-banner__line" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -147,15 +149,15 @@ const channels = [
     }
   }
 
-  /* ── Transition banner (Вариант Б) — жёлтый full-bleed ── */
+  /* ── Transition banner — тёмный стиль с жёлтыми линиями ── */
   .diagnosis-banner {
-    /* Вырываем из section padding, растягиваем на полную ширину */
     margin-left: -1.5rem;
     margin-right: -1.5rem;
-    margin-bottom: -4rem;   /* перекрываем нижний padding секции */
-    padding: 2.5rem 1.5rem;
-    background: var(--color-accent);
+    margin-bottom: -4rem;
+    padding: 3rem 1.5rem;
     text-align: center;
+    background: var(--color-bg-0);
+    position: relative;
   }
 
   @media (min-width: 768px) {
@@ -163,7 +165,7 @@ const channels = [
       margin-left: -3rem;
       margin-right: -3rem;
       margin-bottom: -5.5rem;
-      padding: 3rem 3rem;
+      padding: 4rem 3rem;
     }
   }
 
@@ -172,17 +174,36 @@ const channels = [
       margin-left: -6rem;
       margin-right: -6rem;
       margin-bottom: -7rem;
-      padding: 3.5rem 6rem;
+      padding: 5rem 6rem;
     }
+  }
+
+  /* Жёлтые горизонтальные линии сверху и снизу */
+  .diagnosis-banner__line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 204, 0, 0.5) 30%,
+      rgba(255, 204, 0, 0.8) 50%,
+      rgba(255, 204, 0, 0.5) 70%,
+      transparent
+    );
+    margin: 0 auto 2rem;
+  }
+
+  .diagnosis-banner__line:last-child {
+    margin: 2rem auto 0;
   }
 
   .diagnosis-banner__title {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(1.75rem, 5vw, 3.5rem);
+    font-size: clamp(1.75rem, 5vw, 3.75rem);
     line-height: 1.1;
-    color: #000;
-    margin: 0 0 0.75rem;
+    color: var(--color-text-0);
+    margin: 0 0 1rem;
     letter-spacing: -0.02em;
   }
 
@@ -190,9 +211,9 @@ const channels = [
     font-family: var(--font-mono);
     font-size: 0.8125rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.55);
+    color: var(--color-text-2);
     margin: 0;
   }
 </style>
