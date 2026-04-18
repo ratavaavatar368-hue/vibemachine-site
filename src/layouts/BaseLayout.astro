@@ -20,7 +20,7 @@ const {
 <html lang="ru" class="bg-[var(--color-bg-0)] text-[var(--color-text-0)]">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <title>{title}</title>
@@ -59,13 +59,6 @@ const {
     </noscript>
   </head>
   <body class="grain">
-    <!-- iPhone notch / Dynamic Island safe-area fill — must be first fixed element -->
-    <div
-      aria-hidden="true"
-      id="notch-fill"
-      style="position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);background:#000000;z-index:9999;pointer-events:none;"
-    ></div>
-
     <!-- Scroll progress bar -->
     <div id="scroll-progress" class="scroll-progress"></div>
 
