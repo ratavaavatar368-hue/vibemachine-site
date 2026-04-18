@@ -240,6 +240,10 @@ const channels = [
   @media (max-width: 767px) {
     .diagnosis-banner {
       background: var(--color-accent);  /* жёлтый */
+      border-radius: var(--radius-xl);  /* скруглён как все карточки */
+      /* убираем отрицательные отступы — при скруглении full-bleed не нужен */
+      margin-left: 0;
+      margin-right: 0;
     }
 
     /* Точечный паттерн */

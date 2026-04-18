@@ -64,13 +64,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    /* clip не ломает position:fixed на iOS Safari (в отличие от hidden) */
-    overflow-x: clip;
+    /* НЕ ставим overflow на html — это делает html scroll-контейнером
+       и ломает position:fixed на iOS Safari (любой версии) */
   }
 
   body {
     min-height: 100vh;
-    overflow-x: clip;
+    /* overflow только на body — не затрагивает scroll root */
+    overflow-x: hidden;
   }
 
   ::selection {
